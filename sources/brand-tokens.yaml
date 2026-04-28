@@ -1,0 +1,130 @@
+# Exocognition / ExoCog Brand Tokens — Single Source of Truth
+#
+# Entity:   Overthink, Inc. (C-Corp) — IP holding company (parent, not publicly named)
+# Product:  Exocognition (formal register) / ExoCog (commercial / daily speech)
+# GitHub:   github.com/ExoCog
+#
+# Palette:  Dusk Sky + Smokey Jade + Coral
+# Chosen:   2026-04-09 (palette retained through rebrand)
+# Renamed:  2026-04-28 — DeepThunk metadata replaced with Exocognition; palette and type system unchanged
+#
+# Original DeepThunk-labeled file archived at: archive/brand-tokens__2026-04-09.yaml
+#
+# All skills, build scripts, and interface themes must read from this file.
+# Usage:
+#   Python: yaml.safe_load(open("brand-tokens.yaml"))
+#   Node:   require('js-yaml').load(fs.readFileSync('brand-tokens.yaml', 'utf8'))
+
+# ── Core Palette ────────────────────────────────────────────────────────────
+#
+#   Base      #EFF0F8  Dusk Sky — periwinkle, calm, airy
+#   Surface   #E2E4F4  Elevated surface — cards, panels
+#   Brand     #5860A8  Indigo — primary brand color, actions, navigation
+#   Jade      #4A635D  Smokey Jade — calm accent, waiting/delegated states
+#   Coral     #D25A3C  Coral — action accent, doing/urgent/CTA states
+#   Ink       #10143A  Near-black navy — primary text
+#
+# Semantic accent logic:
+#   Indigo = primary UI actions, links, focus states
+#   Jade   = calm, waiting, observational, delegated
+#   Coral  = active, urgent, doing, highlights, CTA
+
+colors:
+  primary:    "#5860A8"     # Indigo — brand color, primary actions
+  secondary:  "#4A635D"     # Smokey Jade — calm accent
+  accent:     "#D25A3C"     # Coral — action accent
+  background: "#EFF0F8"     # Dusk Sky — app background
+  surface:    "#FFFFFF"     # Card and panel surfaces
+
+  text:
+    dark:     "#10143A"     # Ink — primary text on light backgrounds
+    mid:      "#3A4080"     # Muted indigo — supporting text
+    light:    "#EFF0F8"     # Text on dark/brand backgrounds
+    muted:    "#5860A8"     # Indigo — metadata, timestamps, de-emphasized
+
+  functional:
+    waiting:  "#4A635D"     # Jade — waiting/delegated state
+    doing:    "#D25A3C"     # Coral — in-progress/active state
+    done:     "#5860A8"     # Indigo — completed state
+    green:    "#166534"     # Success, positive metrics (WCAG AA)
+    amber:    "#92400e"     # Warning, attention (WCAG AA)
+    red:      "#b91c1c"     # Error, critical, overdue (WCAG AA)
+
+# ── Typography ───────────────────────────────────────────────────────────────
+fonts:
+  heading: "Inter"
+  body:    "Inter"
+  code:    "JetBrains Mono"
+
+  heading_styles:
+    h1: { weight: "700", color: "#10143A", size_pt: 16 }
+    h2: { weight: "700", color: "#10143A", size_pt: 14 }
+    h3: { weight: "600", color: "#10143A", size_pt: 12 }
+    h4: { weight: "600", color: "#3A4080", size_pt: 12 }
+
+# ── Logo & Assets ─────────────────────────────────────────────────────────────
+assets:
+  logo_mark_svg:     "personal/sources/brand-strategy/assets/overthink-logo-mark.svg"
+  logo_mark_white:   "personal/sources/brand-strategy/assets/overthink-logo-mark-white.svg"
+  # Strata mark (three descending lines) — used on ExoCog product surfaces
+  # Lines: indigo (#5860A8) for top two, coral (#D25A3C) for bottom accent line
+  icon_192:  "interface/public/icons/icon-192.png"   # TODO: regenerate with ExoCog palette
+  icon_512:  "interface/public/icons/icon-512.png"   # TODO: regenerate with ExoCog palette
+
+# ── Rules ─────────────────────────────────────────────────────────────────────
+rules:
+  complete_sentences:   true
+  no_em_dashes:         true
+  wcag_aa_compliance:   true   # All text must meet WCAG 2.1 AA:
+                                # Normal text: 4.5:1 min | Large text: 3:1 min
+  no_dark_backgrounds:  true   # Brand uses light-mode-first; dark bg requires explicit override
+
+# ── Interface Theme (ops_theme) ───────────────────────────────────────────────
+#
+# Used by interface/src/app/globals.css and any standalone ExoCog HTML tools.
+# Visual benchmark: interface/public/deepthunk-chosen.html (file retains historical name)
+#
+ops_theme:
+  background:      "#EFF0F8"    # Dusk Sky — app background
+  surface:         "#FFFFFF"    # Card surfaces
+  surface_hover:   "#E8EAF6"    # Hover state
+  surface_active:  "#E2E4F4"    # Active/selected state
+  border:          "#D8DCF0"    # Standard border
+  border_subtle:   "#E2E4F4"    # Subtle dividers
+
+  text:
+    primary:   "#10143A"        # Ink — headings and body
+    secondary: "#3A4080"        # Muted indigo — supporting text
+    muted:     "#8890C0"        # Light indigo — metadata, timestamps
+
+  brand:       "#5860A8"        # Indigo — buttons, links, active nav, focus rings
+  brand_hover: "#3E48A0"        # Darker indigo — hover/active
+  brand_light: "#8890D0"        # Lighter indigo — on dark surfaces
+
+  jade:        "#4A635D"        # Smokey Jade — waiting/calm accent
+  jade_bg:     "#D4E2DF"        # Jade background tint
+  jade_text:   "#1E3A34"        # Jade dark text (for badges)
+
+  coral:       "#D25A3C"        # Coral — doing/action accent
+  coral_bg:    "#FFE4D8"        # Coral background tint
+  coral_text:  "#8A2A10"        # Coral dark text (for badges)
+
+  functional:
+    green:     "#166534"
+    green_bg:  "rgba(22, 101, 52, 0.08)"
+    amber:     "#92400e"
+    amber_bg:  "rgba(146, 64, 14, 0.08)"
+    red:       "#b91c1c"
+    red_bg:    "rgba(185, 28, 28, 0.06)"
+
+  font:      "Inter"
+  font_mono: "JetBrains Mono"
+
+# ── Overthink, Inc. (parent entity) ──────────────────────────────────────────
+overthink_inc:
+  legal_name: "Overthink, Inc."
+  structure:  "C-Corp"
+  ownership:  "Mel McGee 80%, Sarah 20%"
+  logo_mark:  "personal/sources/brand-strategy/assets/overthink-logo-mark.svg"
+  # Pulse mark — concentric rings + 3 radial nodes, indigo #5860A8
+  # Overthink brand is separate from Exocognition product brand and not publicly named
