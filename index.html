@@ -2080,19 +2080,9 @@
           <span class="perk"><span class="perk-dot"></span>Honest pricing when it's ready</span>
         </div>
 
-        <!--
-          FORM WIRING: Replace action below with your endpoint.
-          Buttondown: action="https://buttondown.email/api/emails/embed-subscribe/YOUR_LIST"
-          Mailchimp: action="https://YOUR_LIST.us1.list-manage.com/subscribe/post?u=XXX&id=XXX"
-          Netlify: add data-netlify="true" attribute and remove the JS submit handler below.
-          Temporary fallback: mailto:hello@exocog.ai is active if JS fails.
-        -->
         <form class="waitlist-form fade-up delay-3"
               id="waitlist-form"
-              action="https://buttondown.email/api/emails/embed-subscribe/exocog"
-              method="POST"
               novalidate>
-          <input type="hidden" name="embed" value="1">
           <label class="sr-only" for="email-input">Email address</label>
           <input
             class="waitlist-input"
@@ -2257,7 +2247,7 @@
     const carouselEl = document.querySelector('.carousel-wrap');
     if (carouselEl) carouselIO.observe(carouselEl);
 
-    // Waitlist form — wired to Buttondown (exocog)
+    // Waitlist form — wired to Formspree (maqvwdln)
     const form    = document.getElementById('waitlist-form');
     const success = document.getElementById('form-success');
     const submitBtn = form.querySelector('button[type="submit"]');
@@ -2272,21 +2262,21 @@
       submitBtn.disabled = true;
 
       try {
-        const payload = { email, embed: '1', tag: 'waitlist' };
-        if (comment) payload['metadata[comment]'] = comment;
-        const res = await fetch('https://buttondown.email/api/emails/embed-subscribe/exocog', {
+        const payload = { email };
+        if (comment) payload.comment = comment;
+        const res = await fetch('https://formspree.io/f/maqvwdln', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: new URLSearchParams(payload)
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(payload)
         });
-        // Buttondown returns 200 on success or a redirect — both mean we're good
+        if (!res.ok) throw new Error('failed');
         form.style.display = 'none';
         success.style.display = 'block';
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({ event: 'waitlist_signup', email: email });
       } catch {
-        // CORS or network issue — fall back to native form submission
-        form.submit();
+        submitBtn.textContent = 'Join the waitlist';
+        submitBtn.disabled = false;
       }
     });
     // Contact modal
@@ -2315,14 +2305,15 @@
       submitBtn.disabled = true;
 
       try {
-        const payload = { email, embed: '1', tag: 'contact' };
-        if (name)    payload['metadata[name]']    = name;
-        if (message) payload['metadata[message]'] = message;
-        await fetch('https://buttondown.email/api/emails/embed-subscribe/exocog', {
+        const payload = { email };
+        if (name)    payload.name    = name;
+        if (message) payload.message = message;
+        const res = await fetch('https://formspree.io/f/xykogdbw', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: new URLSearchParams(payload)
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(payload)
         });
+        if (!res.ok) throw new Error('failed');
         contactForm.style.display = 'none';
         contactSuccess.style.display = 'block';
       } catch {
