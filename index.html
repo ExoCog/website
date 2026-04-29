@@ -215,6 +215,55 @@
       flex-shrink: 0;
     }
 
+    /* ─── Hero visual (org chart panel) ───────────────────── */
+    .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .hv-panel {
+      background: #fff;
+      border: 1px solid var(--border-mid);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 28px 70px rgba(28,28,46,0.13), 0 0 0 1px rgba(88,96,168,0.06);
+    }
+    .hv-bar { background: #eeedf6; padding: 9px 14px; display: flex; align-items: center; gap: 5px; border-bottom: 1px solid var(--border); }
+    .hv-bd { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+    .hv-bd-r{background:#ff5f56;} .hv-bd-y{background:#ffbd2e;} .hv-bd-g{background:#27c93f;}
+    .hv-url { font-size: 10px; color: #9898a8; font-family: var(--font-mono); margin-left: 8px; flex: 1; }
+    .hv-live { display: inline-flex; align-items: center; gap: 4px; font-size: 9.5px; color: var(--jade); font-weight: 500; }
+    .hv-body { padding: 16px 14px; }
+    /* Root */
+    .hv-root { display: flex; justify-content: center; margin-bottom: 0; }
+    .hv-node-root { background: #fff; border: 1.5px solid rgba(88,96,168,0.28); border-radius: 8px; padding: 8px 18px; text-align: center; }
+    .hvn { font-size: 11px; font-weight: 600; color: #1C1C2E; }
+    .hvr { font-size: 9px; color: #9898a8; margin-top: 2px; }
+    /* Vertical stem */
+    .hv-vstem { width: 1px; height: 14px; background: rgba(88,96,168,0.25); margin: 0 auto; }
+    /* Horizontal bridge */
+    .hv-bridge { position: relative; display: flex; justify-content: center; gap: 0; }
+    .hv-bridge::before { content:''; position:absolute; top:0; left:25%; right:25%; height:1px; background:rgba(88,96,168,0.25); }
+    /* Columns */
+    .hv-col { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 0 6px; }
+    .hv-col-head { width: 100%; }
+    .hv-node-human { background: #fff; border: 1.5px solid rgba(88,96,168,0.2); border-radius: 7px; padding: 6px 8px; text-align: center; width: 100%; }
+    .hv-node-ai-head { background: var(--indigo); border-radius: 7px; padding: 6px 8px; text-align: center; width: 100%; }
+    .hv-node-ai-head .hvn { color: #fff; }
+    .hv-node-ai-head .hvr { color: rgba(255,255,255,0.65); }
+    .hv-node-ai-head .hv-live { color: rgba(255,255,255,0.8); }
+    /* Sub nodes */
+    .hv-subnodes { display: flex; flex-direction: column; gap: 5px; width: 100%; margin-top: 0; }
+    .hv-subnode-human { background: #fff; border: 1px solid rgba(88,96,168,0.15); border-radius: 6px; padding: 5px 8px; font-size: 9.5px; color: #1C1C2E; font-weight: 500; position: relative; padding-left: 14px; }
+    .hv-subnode-human::before { content:''; position:absolute; left:0; top:50%; transform:translateY(-50%); width:8px; height:1px; background:rgba(88,96,168,0.2); }
+    .hv-subnode-role { font-size: 8.5px; color: #9898a8; font-weight: 400; }
+    .hv-subnode-agent { background: rgba(88,96,168,0.07); border: 1px solid rgba(88,96,168,0.18); border-radius: 6px; padding: 5px 8px; position: relative; padding-left: 14px; }
+    .hv-subnode-agent::before { content:''; position:absolute; left:0; top:50%; transform:translateY(-50%); width:8px; height:1px; background:rgba(88,96,168,0.3); }
+    .hv-agent-name { font-size: 9.5px; color: var(--indigo); font-weight: 600; }
+    .hv-skill { font-size: 8.5px; color: var(--jade); margin-top: 2px; display: flex; align-items: center; gap: 3px; }
+    .hv-skill::before { content: '▶'; font-size: 7px; color: var(--jade); }
+
+    @media (max-width: 880px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+    }
+
     /* ─── Hero ─────────────────────────────────────────────── */
     .hero {
       padding: 200px 0 96px;
@@ -595,7 +644,9 @@
     .cs-name { font-size:13px; font-weight:600; color:#1C1C2E; }
     .cs-nav { display:flex; align-items:center; gap:8px; padding:9px 14px; font-size:12.5px; color:#7070a0; cursor:default; }
     .cs-nav.active { background:rgba(88,96,168,0.08); color:var(--indigo); font-weight:500; border-right:2px solid var(--indigo); }
-    .cs-icon { font-size:14px; width:16px; text-align:center; }
+    .cs-icon { display: none; }
+    .feed-icon { display: none; }
+    .feed-item { gap: 0; }
     /* Shared main pane */
     .cmain { flex:1; display:flex; flex-direction:column; overflow:hidden; }
     .ctopbar { background:#fff; border-bottom:1px solid rgba(88,96,168,0.1); padding:12px 18px; display:flex; align-items:center; justify-content:space-between; flex-shrink:0; }
@@ -970,23 +1021,39 @@
       background: var(--bg-base);
     }
     .perk-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--coral); }
-    .waitlist-form { display: flex; gap: 0; max-width: 440px; margin: 0 auto 14px; }
+    .waitlist-form { display: flex; flex-direction: column; gap: 10px; max-width: 440px; margin: 0 auto 14px; }
     .waitlist-input {
-      flex: 1;
       background: var(--bg-base);
       border: 1.5px solid var(--border-mid);
-      border-right: none;
-      border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+      border-radius: var(--radius-sm);
       padding: 13px 17px;
       color: var(--text-1);
       font-size: 14px;
       font-family: var(--font-sans);
       outline: none;
       transition: border-color 0.16s ease;
+      width: 100%;
     }
     .waitlist-input::placeholder { color: var(--text-3); }
     .waitlist-input:focus { border-color: var(--indigo); }
-    .waitlist-form .btn { border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: 13px 22px; }
+    .waitlist-comment {
+      background: var(--bg-base);
+      border: 1.5px solid var(--border-mid);
+      border-radius: var(--radius-sm);
+      padding: 12px 17px;
+      color: var(--text-1);
+      font-size: 13.5px;
+      font-family: var(--font-sans);
+      outline: none;
+      resize: vertical;
+      min-height: 88px;
+      line-height: 1.55;
+      transition: border-color 0.16s ease;
+      width: 100%;
+    }
+    .waitlist-comment::placeholder { color: var(--text-3); }
+    .waitlist-comment:focus { border-color: var(--indigo); }
+    .waitlist-form .btn { width: 100%; justify-content: center; border-radius: var(--radius-sm); padding: 13px 22px; }
     .waitlist-disclaimer { font-size: 12px; color: var(--text-3); margin-bottom: 36px; }
     .form-success {
       display: none;
@@ -1084,37 +1151,120 @@
   <!-- ─── Hero ─────────────────────────────────────────────── -->
   <header class="hero">
     <div class="hero-rule" aria-hidden="true"></div>
-    <div class="container">
-      <div class="hero-badge fade-up">
-        <span class="hero-badge-dot" aria-hidden="true"></span>
-        Beta waitlist open &nbsp;·&nbsp; 15 partner slots
+    <div class="container hero-grid">
+
+      <!-- Left: copy -->
+      <div class="hero-left">
+        <div class="hero-badge fade-up">
+          <span class="hero-badge-dot" aria-hidden="true"></span>
+          Beta waitlist open &nbsp;·&nbsp; 15 partner slots
+        </div>
+        <p class="hero-eyebrow fade-up">ExoCog</p>
+        <h1 class="fade-up delay-1">Lead the machine.</h1>
+        <p class="hero-h2 fade-up delay-2">
+          The AI operating layer that routes work, surfaces priorities, and acts within the boundaries your team sets.
+        </p>
+        <p class="hero-sub fade-up delay-2">
+          ExoCog gives your team 10x more operational capacity. It routes tasks to the right people, surfaces what needs attention before it becomes urgent, and handles everything within your defined boundaries, autonomously, on schedule, every day. Stop being the router. Let ExoCog run it.
+        </p>
+        <div class="hero-ctas fade-up delay-3">
+          <a href="#waitlist" class="btn btn-primary btn-lg">Join the waitlist</a>
+          <a href="#interface" class="btn btn-outline btn-lg">See it in action</a>
+        </div>
+        <div class="hero-trust fade-up delay-4">
+          <span class="hero-trust-item">
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 1l1.4 3.8h4l-3.2 2.3 1.2 3.8-3.4-2.5-3.4 2.5 1.2-3.8L1.1 4.8h4z" fill="#C89A4A"/></svg>
+            Cleveland Magazine Community Leader
+          </span>
+          <span class="hero-trust-item">
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5" stroke="#9898A8" stroke-width="1.2"/><path d="M6.5 4v2.5l1.5 1.5" stroke="#9898A8" stroke-width="1.2" stroke-linecap="round"/></svg>
+            90+ AI skills in active deployment
+          </span>
+          <span class="hero-trust-item">
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 3.5h9v6a1.5 1.5 0 01-1.5 1.5h-6A1.5 1.5 0 012 9.5v-6z" stroke="#9898A8" stroke-width="1.2"/><path d="M4.5 3.5V2.5a2 2 0 014 0v1" stroke="#9898A8" stroke-width="1.2"/></svg>
+            Architecture pattern published and free to read
+          </span>
+        </div>
       </div>
-      <p class="hero-eyebrow fade-up">ExoCog</p>
-      <h1 class="fade-up delay-1">Lead the machine.</h1>
-      <p class="hero-h2 fade-up delay-2">
-        The AI operating layer that routes work, surfaces priorities, and acts within the boundaries your team sets.
-      </p>
-      <p class="hero-sub fade-up delay-2">
-        ExoCog gives your team 10x more operational capacity. It routes tasks to the right people, surfaces what needs attention before it becomes urgent, and handles everything within your defined boundaries, autonomously, on schedule, every day. Stop being the router. Let ExoCog run it.
-      </p>
-      <div class="hero-ctas fade-up delay-3">
-        <a href="#waitlist" class="btn btn-primary btn-lg">Join the waitlist</a>
-        <a href="#demo" class="btn btn-outline btn-lg">See it in action</a>
+
+      <!-- Right: org chart visual -->
+      <div class="hero-right fade-up delay-2">
+        <div class="hv-panel">
+          <div class="hv-bar">
+            <span class="hv-bd hv-bd-r"></span>
+            <span class="hv-bd hv-bd-y"></span>
+            <span class="hv-bd hv-bd-g"></span>
+            <span class="hv-url">app.exocog.ai / org-chart</span>
+            <span class="hv-live"><span class="org-pulse"></span>Live</span>
+          </div>
+          <div class="hv-body">
+            <!-- Root: CEO -->
+            <div class="hv-root">
+              <div class="hv-node-root">
+                <div class="hvn">Jordan Riley</div>
+                <div class="hvr">CEO</div>
+              </div>
+            </div>
+            <div class="hv-vstem"></div>
+            <!-- Bridge -->
+            <div class="hv-bridge">
+              <!-- Left: human hierarchy -->
+              <div class="hv-col">
+                <div class="hv-col-head">
+                  <div class="hv-node-human">
+                    <div class="hvn">Alex Chen</div>
+                    <div class="hvr">COO</div>
+                  </div>
+                </div>
+                <div class="hv-vstem"></div>
+                <div class="hv-subnodes">
+                  <div class="hv-subnode-human">Sam Torres<div class="hv-subnode-role">Implementation Lead</div></div>
+                  <div class="hv-subnode-human">Maya Reyes<div class="hv-subnode-role">Marketing</div></div>
+                  <div class="hv-subnode-human">Devon Kim<div class="hv-subnode-role">Finance</div></div>
+                  <div class="hv-subnode-human">Casey Park<div class="hv-subnode-role">Sales Lead</div></div>
+                </div>
+              </div>
+              <!-- Right: AI layer -->
+              <div class="hv-col">
+                <div class="hv-col-head">
+                  <div class="hv-node-ai-head">
+                    <div class="hvn">ExoCog Layer</div>
+                    <div class="hv-live" style="justify-content:center;margin-top:3px;"><span class="org-pulse"></span>8 agents running</div>
+                  </div>
+                </div>
+                <div class="hv-vstem"></div>
+                <div class="hv-subnodes">
+                  <div class="hv-subnode-agent">
+                    <div class="hv-agent-name">Email Agent</div>
+                    <div class="hv-skill">Inbox scan · task extract</div>
+                  </div>
+                  <div class="hv-subnode-agent">
+                    <div class="hv-agent-name">Calendar Agent</div>
+                    <div class="hv-skill">Brief gen · context load</div>
+                  </div>
+                  <div class="hv-subnode-agent">
+                    <div class="hv-agent-name">Pipeline Agent</div>
+                    <div class="hv-skill">Deal health · stale flag</div>
+                  </div>
+                  <div class="hv-subnode-agent">
+                    <div class="hv-agent-name">Task Router</div>
+                    <div class="hv-skill">Route · prioritize · file</div>
+                  </div>
+                  <div class="hv-subnode-agent">
+                    <div class="hv-agent-name">Chat Monitor</div>
+                    <div class="hv-skill">28 spaces · action extract</div>
+                  </div>
+                  <div class="hv-subnode-agent">
+                    <div class="hv-agent-name">Report Agent</div>
+                    <div class="hv-skill">Weekly digest · Q2 narrative</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="hero-trust fade-up delay-4">
-        <span class="hero-trust-item">
-          <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 1l1.4 3.8h4l-3.2 2.3 1.2 3.8-3.4-2.5-3.4 2.5 1.2-3.8L1.1 4.8h4z" fill="#C89A4A"/></svg>
-          Cleveland Magazine Community Leader
-        </span>
-        <span class="hero-trust-item">
-          <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5" stroke="#9898A8" stroke-width="1.2"/><path d="M6.5 4v2.5l1.5 1.5" stroke="#9898A8" stroke-width="1.2" stroke-linecap="round"/></svg>
-          90+ AI skills in active deployment
-        </span>
-        <span class="hero-trust-item">
-          <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 3.5h9v6a1.5 1.5 0 01-1.5 1.5h-6A1.5 1.5 0 012 9.5v-6z" stroke="#9898A8" stroke-width="1.2"/><path d="M4.5 3.5V2.5a2 2 0 014 0v1" stroke="#9898A8" stroke-width="1.2"/></svg>
-          Architecture pattern published and free to read
-        </span>
-      </div>
+
     </div>
   </header>
 
@@ -1170,8 +1320,8 @@
         </div>
         <div class="feature fade-up">
           <div class="feature-icon" aria-hidden="true">🔗</div>
-          <h3>Works with your existing stack</h3>
-          <p>ExoCog connects to the tools your team already uses, whether that is Google Workspace, Microsoft 365, HubSpot, Salesforce, or Slack, through their official APIs. No migration. It makes what you have feel coordinated.</p>
+          <h3>Built on Claude Code + MCP</h3>
+          <p>ExoCog runs on Claude Code and the Model Context Protocol, the open standard for AI tool integrations. We guide every installation personally. What ExoCog can connect to grows with every MCP server the community builds, and we help you wire in the ones that matter for your operation.</p>
         </div>
         <div class="feature fade-up delay-1">
           <div class="feature-icon" aria-hidden="true">🧠</div>
@@ -1385,89 +1535,87 @@
             </div>
             <div class="cmain">
               <div class="ctopbar">
-                <span class="ctopbar-title">Org Chart — Humans + AI Agents working now</span>
+                <span class="ctopbar-title">Org Chart — People overseeing agents running skills</span>
                 <span class="ctopbar-meta">5 humans · 8 agents active</span>
               </div>
-              <div class="cbody" style="padding:8px 12px; overflow-y:auto;">
-                <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; height:100%;">
-
-                  <!-- Left: Human team -->
-                  <div style="display:flex; flex-direction:column; gap:6px;">
-                    <div style="font-size:9.5px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:#9898a8; margin-bottom:2px;">Human Team</div>
-                    <div class="org-node org-node-human stagger-1" style="max-width:none;">
-                      <div style="display:flex; align-items:center; justify-content:space-between;">
-                        <div><div class="on-name">Jordan Riley</div><div class="on-role">CEO / Visionary</div></div>
-                        <div style="width:7px;height:7px;border-radius:50%;background:#22c55e;flex-shrink:0;box-shadow:0 0 5px rgba(34,197,94,0.6);"></div>
+              <div class="cbody" style="padding:10px 12px; overflow-y:auto; align-items:flex-start;">
+                <!-- Tree root -->
+                <div style="display:flex; flex-direction:column; align-items:center; width:100%; gap:0;">
+                  <!-- CEO -->
+                  <div class="stagger-1" style="background:#fff; border:1.5px solid rgba(88,96,168,0.25); border-radius:7px; padding:6px 20px; text-align:center; font-size:11px; font-weight:600; color:#1C1C2E;">
+                    Jordan Riley <span style="font-weight:400; color:#9898a8; font-size:9.5px;">· CEO</span>
+                  </div>
+                  <div style="width:1px; height:12px; background:rgba(88,96,168,0.25);"></div>
+                  <!-- Horizontal branch bar -->
+                  <div style="display:flex; width:88%; position:relative;">
+                    <div style="position:absolute; top:0; left:0; right:0; height:1px; background:rgba(88,96,168,0.25);"></div>
+                  </div>
+                  <!-- Two branches -->
+                  <div class="stagger-2" style="display:grid; grid-template-columns:1fr 1fr; gap:12px; width:88%; margin-top:0;">
+                    <!-- Left: Human team -->
+                    <div style="display:flex; flex-direction:column; align-items:center; gap:0;">
+                      <div style="width:1px; height:12px; background:rgba(88,96,168,0.25);"></div>
+                      <div style="background:#fff; border:1.5px solid rgba(88,96,168,0.2); border-radius:7px; padding:5px 12px; text-align:center; font-size:10.5px; font-weight:600; color:#1C1C2E; width:100%;">
+                        Alex Chen <span style="font-weight:400; color:#9898a8; font-size:9px;">· COO</span>
                       </div>
-                      <div style="font-size:9.5px; color:var(--indigo); margin-top:5px; padding-top:5px; border-top:1px solid rgba(88,96,168,0.1);">Reviewing Kellner proposal</div>
+                      <div style="width:1px; height:10px; background:rgba(88,96,168,0.2);"></div>
+                      <!-- Human reports -->
+                      <div style="display:flex; flex-direction:column; gap:4px; width:100%; border-left:1px solid rgba(88,96,168,0.18); padding-left:8px; margin-left:8px;">
+                        <div class="stagger-3" style="display:flex; align-items:center; justify-content:space-between; background:#fff; border:1px solid rgba(88,96,168,0.13); border-radius:6px; padding:5px 8px;">
+                          <div><div style="font-size:10px; font-weight:600; color:#1C1C2E;">Sam Torres</div><div style="font-size:8.5px; color:#9898a8;">Implementation Lead</div></div>
+                          <div style="width:6px;height:6px;border-radius:50%;background:#22c55e;box-shadow:0 0 4px rgba(34,197,94,0.6);flex-shrink:0;"></div>
+                        </div>
+                        <div class="stagger-4" style="display:flex; align-items:center; justify-content:space-between; background:#fff; border:1px solid rgba(88,96,168,0.13); border-radius:6px; padding:5px 8px;">
+                          <div><div style="font-size:10px; font-weight:600; color:#1C1C2E;">Maya Reyes</div><div style="font-size:8.5px; color:#9898a8;">Marketing</div></div>
+                          <div style="width:6px;height:6px;border-radius:50%;background:#22c55e;box-shadow:0 0 4px rgba(34,197,94,0.6);flex-shrink:0;"></div>
+                        </div>
+                        <div class="stagger-5" style="display:flex; align-items:center; justify-content:space-between; background:#fff; border:1px solid rgba(88,96,168,0.13); border-radius:6px; padding:5px 8px;">
+                          <div><div style="font-size:10px; font-weight:600; color:#1C1C2E;">Devon Kim</div><div style="font-size:8.5px; color:#9898a8;">Finance</div></div>
+                          <div style="width:6px;height:6px;border-radius:50%;background:#f59e0b;flex-shrink:0;"></div>
+                        </div>
+                        <div class="stagger-6" style="display:flex; align-items:center; justify-content:space-between; background:#fff; border:1px solid rgba(88,96,168,0.13); border-radius:6px; padding:5px 8px;">
+                          <div><div style="font-size:10px; font-weight:600; color:#1C1C2E;">Casey Park</div><div style="font-size:8.5px; color:#9898a8;">Sales Lead</div></div>
+                          <div style="width:6px;height:6px;border-radius:50%;background:#22c55e;box-shadow:0 0 4px rgba(34,197,94,0.6);flex-shrink:0;"></div>
+                        </div>
+                      </div>
                     </div>
-                    <div class="org-node org-node-human stagger-2" style="max-width:none;">
-                      <div style="display:flex; align-items:center; justify-content:space-between;">
-                        <div><div class="on-name">Alex Chen</div><div class="on-role">COO / Integrator</div></div>
-                        <div style="width:7px;height:7px;border-radius:50%;background:#22c55e;flex-shrink:0;box-shadow:0 0 5px rgba(34,197,94,0.6);"></div>
+                    <!-- Right: ExoCog AI agents -->
+                    <div style="display:flex; flex-direction:column; align-items:center; gap:0;">
+                      <div style="width:1px; height:12px; background:rgba(88,96,168,0.35);"></div>
+                      <div style="background:var(--indigo); border-radius:7px; padding:5px 12px; text-align:center; font-size:10.5px; font-weight:600; color:#fff; width:100%; display:flex; align-items:center; justify-content:space-between;">
+                        <span>ExoCog Layer</span>
+                        <span style="display:flex;align-items:center;gap:3px;font-size:9px;color:rgba(255,255,255,0.75);"><span class="org-pulse" style="width:5px;height:5px;"></span>8 active</span>
                       </div>
-                      <div style="font-size:9.5px; color:var(--indigo); margin-top:5px; padding-top:5px; border-top:1px solid rgba(88,96,168,0.1);">Weekly metrics review</div>
-                    </div>
-                    <div class="org-node org-node-human stagger-3" style="max-width:none;">
-                      <div style="display:flex; align-items:center; justify-content:space-between;">
-                        <div><div class="on-name">Sam Torres</div><div class="on-role">Head of Implementation</div></div>
-                        <div style="width:7px;height:7px;border-radius:50%;background:#22c55e;flex-shrink:0;box-shadow:0 0 5px rgba(34,197,94,0.6);"></div>
+                      <div style="width:1px; height:10px; background:rgba(88,96,168,0.3);"></div>
+                      <!-- Agent nodes with skills -->
+                      <div style="display:flex; flex-direction:column; gap:4px; width:100%; border-left:1px solid rgba(88,96,168,0.3); padding-left:8px; margin-left:8px;">
+                        <div class="stagger-3" style="background:rgba(88,96,168,0.07); border:1px solid rgba(88,96,168,0.2); border-radius:6px; padding:5px 8px;">
+                          <div style="font-size:10px; font-weight:600; color:var(--indigo);">Email Agent</div>
+                          <div style="font-size:8.5px; color:var(--jade); margin-top:2px;">▶ Inbox scan · task extract</div>
+                        </div>
+                        <div class="stagger-4" style="background:rgba(88,96,168,0.07); border:1px solid rgba(88,96,168,0.2); border-radius:6px; padding:5px 8px;">
+                          <div style="font-size:10px; font-weight:600; color:var(--indigo);">Calendar Agent</div>
+                          <div style="font-size:8.5px; color:var(--jade); margin-top:2px;">▶ Brief gen · context load</div>
+                        </div>
+                        <div class="stagger-5" style="background:rgba(88,96,168,0.07); border:1px solid rgba(88,96,168,0.2); border-radius:6px; padding:5px 8px;">
+                          <div style="font-size:10px; font-weight:600; color:var(--indigo);">Pipeline Agent</div>
+                          <div style="font-size:8.5px; color:var(--jade); margin-top:2px;">▶ Deal health · stale flag</div>
+                        </div>
+                        <div class="stagger-6" style="background:rgba(88,96,168,0.07); border:1px solid rgba(88,96,168,0.2); border-radius:6px; padding:5px 8px;">
+                          <div style="font-size:10px; font-weight:600; color:var(--indigo);">Task Router</div>
+                          <div style="font-size:8.5px; color:var(--jade); margin-top:2px;">▶ Route · prioritize · file</div>
+                        </div>
+                        <div class="stagger-7" style="background:rgba(88,96,168,0.07); border:1px solid rgba(88,96,168,0.2); border-radius:6px; padding:5px 8px;">
+                          <div style="font-size:10px; font-weight:600; color:var(--indigo);">Chat Monitor</div>
+                          <div style="font-size:8.5px; color:var(--jade); margin-top:2px;">▶ 28 spaces · action extract</div>
+                        </div>
+                        <div class="stagger-8" style="background:rgba(88,96,168,0.07); border:1px solid rgba(88,96,168,0.2); border-radius:6px; padding:5px 8px;">
+                          <div style="font-size:10px; font-weight:600; color:var(--indigo);">Report Agent</div>
+                          <div style="font-size:8.5px; color:var(--jade); margin-top:2px;">▶ Weekly digest · narrative</div>
+                        </div>
                       </div>
-                      <div style="font-size:9.5px; color:var(--indigo); margin-top:5px; padding-top:5px; border-top:1px solid rgba(88,96,168,0.1);">Prepping Harlow session deck</div>
-                    </div>
-                    <div class="org-node org-node-human stagger-4" style="max-width:none;">
-                      <div style="display:flex; align-items:center; justify-content:space-between;">
-                        <div><div class="on-name">Maya Reyes</div><div class="on-role">Head of Marketing</div></div>
-                        <div style="width:7px;height:7px;border-radius:50%;background:#f59e0b;flex-shrink:0;"></div>
-                      </div>
-                      <div style="font-size:9.5px; color:var(--indigo); margin-top:5px; padding-top:5px; border-top:1px solid rgba(88,96,168,0.1);">Reviewing campaign draft</div>
-                    </div>
-                    <div class="org-node org-node-human stagger-5" style="max-width:none;">
-                      <div style="display:flex; align-items:center; justify-content:space-between;">
-                        <div><div class="on-name">Devon Kim</div><div class="on-role">Finance Lead</div></div>
-                        <div style="width:7px;height:7px;border-radius:50%;background:#22c55e;flex-shrink:0;box-shadow:0 0 5px rgba(34,197,94,0.6);"></div>
-                      </div>
-                      <div style="font-size:9.5px; color:var(--indigo); margin-top:5px; padding-top:5px; border-top:1px solid rgba(88,96,168,0.1);">Approving Q2 budget variance</div>
                     </div>
                   </div>
-
-                  <!-- Right: AI Agents -->
-                  <div style="display:flex; flex-direction:column; gap:6px;">
-                    <div style="font-size:9.5px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--indigo); opacity:0.7; margin-bottom:2px;">AI Agents — Running now</div>
-                    <div class="org-node org-node-ai stagger-1" style="max-width:none;">
-                      <div style="display:flex; align-items:center; justify-content:space-between;"><span style="font-size:11px; font-weight:600;">📧 Email Agent</span><span class="org-pulse"></span></div>
-                      <div class="on-status" style="justify-content:flex-start; margin-top:3px;">Scanned 14 msgs · 3 tasks created</div>
-                    </div>
-                    <div class="org-node org-node-ai stagger-2" style="max-width:none;">
-                      <div style="display:flex; align-items:center; justify-content:space-between;"><span style="font-size:11px; font-weight:600;">📅 Calendar Agent</span><span class="org-pulse"></span></div>
-                      <div class="on-status" style="justify-content:flex-start; margin-top:3px;">4 meeting briefs prepared</div>
-                    </div>
-                    <div class="org-node org-node-ai stagger-3" style="max-width:none;">
-                      <div style="display:flex; align-items:center; justify-content:space-between;"><span style="font-size:11px; font-weight:600;">💬 Chat Agent</span><span class="org-pulse"></span></div>
-                      <div class="on-status" style="justify-content:flex-start; margin-top:3px;">Monitoring 28 spaces · 1 action filed</div>
-                    </div>
-                    <div class="org-node org-node-ai stagger-4" style="max-width:none;">
-                      <div style="display:flex; align-items:center; justify-content:space-between;"><span style="font-size:11px; font-weight:600;">📊 Pipeline Agent</span><span class="org-pulse"></span></div>
-                      <div class="on-status" style="justify-content:flex-start; margin-top:3px;">2 stale deals flagged · owners notified</div>
-                    </div>
-                    <div class="org-node org-node-ai stagger-5" style="max-width:none;">
-                      <div style="display:flex; align-items:center; justify-content:space-between;"><span style="font-size:11px; font-weight:600;">🎯 Task Router</span><span class="org-pulse"></span></div>
-                      <div class="on-status" style="justify-content:flex-start; margin-top:3px;">6 items routed to right owners today</div>
-                    </div>
-                    <div class="org-node org-node-ai stagger-6" style="max-width:none;">
-                      <div style="display:flex; align-items:center; justify-content:space-between;"><span style="font-size:11px; font-weight:600;">📝 Transcript Agent</span><span class="org-pulse"></span></div>
-                      <div class="on-status" style="justify-content:flex-start; margin-top:3px;">3 meetings processed · 8 actions filed</div>
-                    </div>
-                    <div class="org-node org-node-ai stagger-7" style="max-width:none;">
-                      <div style="display:flex; align-items:center; justify-content:space-between;"><span style="font-size:11px; font-weight:600;">🔍 Engagement Monitor</span><span class="org-pulse"></span></div>
-                      <div class="on-status" style="justify-content:flex-start; margin-top:3px;">Kellner at risk · escalated to Jordan</div>
-                    </div>
-                    <div class="org-node org-node-ai stagger-8" style="max-width:none;">
-                      <div style="display:flex; align-items:center; justify-content:space-between;"><span style="font-size:11px; font-weight:600;">📋 Morning Brief Agent</span><span class="org-pulse"></span></div>
-                      <div class="on-status" style="justify-content:flex-start; margin-top:3px;">Delivered 6:07 AM · all 5 members</div>
-                    </div>
-                  </div>
-
                 </div>
               </div>
             </div>
@@ -1551,18 +1699,10 @@
 
         <!-- Scene tabs -->
         <div class="carousel-nav">
-          <button class="carousel-tab active" data-scene="1">
-            <span class="carousel-tab-icon">🏠</span> Dashboard
-          </button>
-          <button class="carousel-tab" data-scene="2">
-            <span class="carousel-tab-icon">📅</span> Calendar
-          </button>
-          <button class="carousel-tab" data-scene="3">
-            <span class="carousel-tab-icon">🤖</span> Org chart
-          </button>
-          <button class="carousel-tab" data-scene="4">
-            <span class="carousel-tab-icon">⚡</span> Live activity
-          </button>
+          <button class="carousel-tab active" data-scene="1">Dashboard</button>
+          <button class="carousel-tab" data-scene="2">Calendar</button>
+          <button class="carousel-tab" data-scene="3">Org chart</button>
+          <button class="carousel-tab" data-scene="4">Live activity</button>
         </div>
       </div><!-- /carousel-wrap -->
     </div>
@@ -1581,8 +1721,8 @@
       <div class="steps">
         <div class="step fade-up">
           <div class="step-num">01</div>
-          <h3>Connect to what your team already uses</h3>
-          <p>ExoCog connects to your email, calendar, CRM, documents, and communication tools through their official APIs, whether you are running Google Workspace, Microsoft 365, or a mix. No migration. No new platform to learn.</p>
+          <h3>Install ExoCog on your environment</h3>
+          <p>ExoCog runs on Claude Code. We guide you through installation personally and connect the MCP integrations that fit your operation. Setup is a session, not a sprint.</p>
         </div>
         <div class="step fade-up delay-1">
           <div class="step-num">02</div>
@@ -1592,21 +1732,15 @@
         <div class="step fade-up delay-2">
           <div class="step-num">03</div>
           <h3>ExoCog handles the rest</h3>
-          <p>Email, calendar, pipeline, tasks, content: ExoCog handles the capture, the routing, and the follow-through. Work that used to fall through the gaps gets surfaced. Work that did not need your attention stops getting it.</p>
+          <p>ExoCog runs on a schedule, routes work to the right people, surfaces what needs your attention, and handles everything within the boundaries you set, autonomously, every day. Work that used to fall through the gaps stops falling.</p>
         </div>
       </div>
       <div class="integrations fade-up" style="margin-top: 56px;">
-        <span class="int-label">Works with</span>
-        <span class="int-chip">Your email</span>
-        <span class="int-chip">Your calendar</span>
-        <span class="int-chip">Your CRM</span>
-        <span class="int-chip">Google Workspace</span>
-        <span class="int-chip">Microsoft 365 <span class="int-chip-soon">soon</span></span>
-        <span class="int-chip">HubSpot</span>
-        <span class="int-chip">Salesforce</span>
-        <span class="int-chip">Slack</span>
-        <span class="int-chip">Teams <span class="int-chip-soon">soon</span></span>
-        <span class="int-chip">+ more via MCP</span>
+        <span class="int-label">Powered by</span>
+        <span class="int-chip">Claude Code</span>
+        <span class="int-chip">MCP — Model Context Protocol</span>
+        <span class="int-chip">Growing integration library</span>
+        <span class="int-chip">Guided installation</span>
       </div>
     </div>
   </section>
@@ -1617,9 +1751,9 @@
       <div class="bridge-card fade-up">
         <div>
           <p class="bridge-label">For businesses</p>
-          <h2>We bring the structure. You keep your stack.</h2>
+          <h2>Same patterns. Your enterprise tools.</h2>
           <p>
-            The Hours Back Sprint is how SkillSpout installs the ExoCog operator pattern inside your team's existing tools. We do not ask you to migrate, replace, or rip anything out. Whether your team runs Microsoft 365, Google Workspace, Copilot, Claude, Salesforce, or a mix, we build the routing, the AI supports, and the trust ladder on top of what you already use. Six weeks. A working system on day one, trained to your workflows, native to your tools.
+            The Hours Back Sprint does not install ExoCog. It takes the same operator patterns behind ExoCog and builds them directly into the enterprise tools your team already uses: Microsoft 365, Google Workspace, Copilot, Salesforce, or whatever your stack is. We design the routing, the AI supports, and the trust ladder on top of what you have. No new platform. No migration. The architecture is the same. The implementation is native to your environment.
           </p>
           <div class="bridge-chips">
             <span class="bchip">Microsoft 365</span>
@@ -1681,6 +1815,12 @@
             placeholder="you@yourcompany.com"
             required
             autocomplete="email">
+          <label class="sr-only" for="comment-input">Tell us about your team or use case</label>
+          <textarea
+            class="waitlist-comment"
+            id="comment-input"
+            name="comment"
+            placeholder="Tell us about your team or what you're trying to run on ExoCog (optional)"></textarea>
           <button type="submit" class="btn btn-primary">
             Join
             <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M2 6.5h9M7 3l3.5 3.5L7 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -1752,7 +1892,7 @@
     const scenes   = document.querySelectorAll('.cscene');
     const tabs     = document.querySelectorAll('.carousel-tab');
     const urlBar   = document.getElementById('cbbar-url');
-    const urls     = ['app.exocog.ai/dashboard','app.exocog.ai/calendar','app.exocog.ai/agents','app.exocog.ai/tasks'];
+    const urls     = ['app.exocog.ai/dashboard','app.exocog.ai/calendar','app.exocog.ai/agents','app.exocog.ai/activity'];
     let current    = 0;
     let autoTimer;
 
@@ -1790,17 +1930,20 @@
 
     form.addEventListener('submit', async e => {
       e.preventDefault();
-      const email = form.querySelector('input[type="email"]').value.trim();
+      const email   = form.querySelector('input[type="email"]').value.trim();
+      const comment = (form.querySelector('textarea[name="comment"]').value || '').trim();
       if (!email || !email.includes('@')) return;
 
       submitBtn.textContent = 'Joining…';
       submitBtn.disabled = true;
 
       try {
+        const payload = { email, embed: '1' };
+        if (comment) payload['metadata[comment]'] = comment;
         const res = await fetch('https://buttondown.email/api/emails/embed-subscribe/exocog', {
           method: 'POST',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: new URLSearchParams({ email, embed: '1' })
+          body: new URLSearchParams(payload)
         });
         // Buttondown returns 200 on success or a redirect — both mean we're good
         form.style.display = 'none';
