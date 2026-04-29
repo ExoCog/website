@@ -759,6 +759,36 @@
     .carousel-tab.active { background:var(--indigo); border-color:var(--indigo); color:#fff; }
     .carousel-tab-icon { font-size:13px; }
 
+    /* Skill pack scene */
+    .pack-tabs { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 10px; }
+    .pack-tab {
+      padding: 5px 13px; border-radius: 100px; font-size: 11.5px; font-weight: 500;
+      border: 1.5px solid var(--border-mid); background: transparent; color: var(--text-2);
+      cursor: pointer; font-family: var(--font-sans); transition: all 0.15s ease;
+    }
+    .pack-tab:hover { border-color: var(--indigo); color: var(--indigo); }
+    .pack-tab.active { background: var(--indigo); border-color: var(--indigo); color: #fff; }
+    .pack-content { display: none; grid-template-columns: 1fr 1fr; gap: 7px; }
+    .pack-content.active { display: grid; }
+    .skill-card {
+      background: #fff; border: 1px solid rgba(88,96,168,0.12); border-radius: 8px;
+      padding: 10px 11px; display: flex; flex-direction: column; gap: 4px;
+      transition: border-color 0.15s;
+    }
+    .skill-card:hover { border-color: rgba(88,96,168,0.3); }
+    .skill-name { font-size: 11px; font-weight: 600; color: #1C1C2E; }
+    .skill-desc { font-size: 10px; color: #9898a8; line-height: 1.5; }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 3px; }
+    .skill-tag {
+      font-size: 9px; font-weight: 500; padding: 1px 7px; border-radius: 100px;
+      background: rgba(88,96,168,0.08); color: var(--indigo);
+    }
+    .pack-cta {
+      grid-column: span 2; background: rgba(74,99,93,0.06); border: 1px dashed rgba(74,99,93,0.3);
+      border-radius: 8px; padding: 10px; text-align: center; font-size: 11px; color: var(--jade);
+      font-weight: 500;
+    }
+
     /* stagger animations for scene content */
     @keyframes fadeSlideUp { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
     .cscene.active .stagger-1 { animation: fadeSlideUp 0.4s ease 0.1s both; }
@@ -1695,6 +1725,178 @@
               </div>
             </div>
           </div>
+          <!-- ── Scene 5: Skill Packs ── -->
+          <div class="cscene" id="cs-5">
+            <div class="csidebar">
+              <div class="cs-logo"><div class="cs-mark">Ex</div><span class="cs-name">ExoCog</span></div>
+              <div class="cs-nav"><span class="cs-icon">🏠</span> Dashboard</div>
+              <div class="cs-nav"><span class="cs-icon">📅</span> Calendar</div>
+              <div class="cs-nav"><span class="cs-icon">💬</span> Chat</div>
+              <div class="cs-nav"><span class="cs-icon">✅</span> Tasks</div>
+              <div class="cs-nav"><span class="cs-icon">📊</span> Pipeline</div>
+              <div class="cs-nav"><span class="cs-icon">🤖</span> Agents</div>
+              <div class="cs-nav active"><span class="cs-icon">📦</span> Skill Packs</div>
+            </div>
+            <div class="cmain">
+              <div class="ctopbar">
+                <span class="ctopbar-title">Skill Packs — Industry-ready, fully customizable</span>
+                <span class="ctopbar-meta">4 packs · 20+ skills</span>
+              </div>
+              <div class="cbody" style="overflow-y:auto;">
+
+                <!-- Pack category tabs -->
+                <div class="pack-tabs stagger-1">
+                  <button class="pack-tab active" onclick="switchPack(this,'pack-mktg')">Marketing</button>
+                  <button class="pack-tab" onclick="switchPack(this,'pack-sales')">Sales</button>
+                  <button class="pack-tab" onclick="switchPack(this,'pack-ops')">Operations</button>
+                  <button class="pack-tab" onclick="switchPack(this,'pack-fin')">Finance</button>
+                  <span style="padding:5px 13px; border-radius:100px; font-size:11.5px; font-weight:500; border:1.5px dashed var(--border-mid); color:var(--text-3); cursor:default; letter-spacing:0.02em;">+ More packs</span>
+                </div>
+
+                <!-- Marketing Pack -->
+                <div class="pack-content active stagger-2" id="pack-mktg">
+                  <div class="skill-card">
+                    <div class="skill-name">SEO Agent</div>
+                    <div class="skill-desc">Keyword research, on-page audit, competitor gap analysis, rank change alerts.</div>
+                    <div class="skill-tags"><span class="skill-tag">Content</span><span class="skill-tag">Research</span></div>
+                  </div>
+                  <div class="skill-card">
+                    <div class="skill-name">Web Agent</div>
+                    <div class="skill-desc">Landing page copy, meta descriptions, content briefs, A/B headline variants.</div>
+                    <div class="skill-tags"><span class="skill-tag">Copy</span><span class="skill-tag">Web</span></div>
+                  </div>
+                  <div class="skill-card">
+                    <div class="skill-name">Campaign Monitor</div>
+                    <div class="skill-desc">Ad performance summaries, email open/click metrics, weekly channel digest.</div>
+                    <div class="skill-tags"><span class="skill-tag">Analytics</span><span class="skill-tag">Reporting</span></div>
+                  </div>
+                  <div class="skill-card">
+                    <div class="skill-name">Newsletter Agent</div>
+                    <div class="skill-desc">Issue drafts in your voice, subject line variants, optimal send timing surface.</div>
+                    <div class="skill-tags"><span class="skill-tag">Content</span><span class="skill-tag">Email</span></div>
+                  </div>
+                  <div class="skill-card">
+                    <div class="skill-name">LinkedIn Agent</div>
+                    <div class="skill-desc">Post drafts, engagement surface, outreach sequence drafts, comment monitoring.</div>
+                    <div class="skill-tags"><span class="skill-tag">Social</span><span class="skill-tag">Outreach</span></div>
+                  </div>
+                  <div class="skill-card">
+                    <div class="skill-name">Brand Monitor</div>
+                    <div class="skill-desc">Mention tracking, sentiment surface, competitor move alerts, press opportunity flags.</div>
+                    <div class="skill-tags"><span class="skill-tag">Intelligence</span><span class="skill-tag">PR</span></div>
+                  </div>
+                  <div class="pack-cta">All skills are fully customizable to your voice, tools, and workflows.</div>
+                </div>
+
+                <!-- Sales Pack -->
+                <div class="pack-content" id="pack-sales">
+                  <div class="skill-card">
+                    <div class="skill-name">Proposal Agent</div>
+                    <div class="skill-desc">RFP parsing, custom proposal drafts in your voice, pricing table population.</div>
+                    <div class="skill-tags"><span class="skill-tag">Proposals</span><span class="skill-tag">Drafting</span></div>
+                  </div>
+                  <div class="skill-card">
+                    <div class="skill-name">Sales Prep Agent</div>
+                    <div class="skill-desc">Account research, meeting briefs, talking points, stakeholder context from CRM.</div>
+                    <div class="skill-tags"><span class="skill-tag">Research</span><span class="skill-tag">Prep</span></div>
+                  </div>
+                  <div class="skill-card">
+                    <div class="skill-name">Follow-up Agent</div>
+                    <div class="skill-desc">Post-call summaries, next step drafts, CRM logging, overdue deal flagging.</div>
+                    <div class="skill-tags"><span class="skill-tag">CRM</span><span class="skill-tag">Follow-up</span></div>
+                  </div>
+                  <div class="skill-card">
+                    <div class="skill-name">Pipeline Agent</div>
+                    <div class="skill-desc">Deal health scoring, stale deal flags, close date drift alerts, owner notifications.</div>
+                    <div class="skill-tags"><span class="skill-tag">Pipeline</span><span class="skill-tag">Alerts</span></div>
+                  </div>
+                  <div class="skill-card">
+                    <div class="skill-name">Lead Scoring Agent</div>
+                    <div class="skill-desc">ICP match scoring, engagement signal tracking, priority ranking surface.</div>
+                    <div class="skill-tags"><span class="skill-tag">Leads</span><span class="skill-tag">Scoring</span></div>
+                  </div>
+                  <div class="skill-card">
+                    <div class="skill-name">Contract Agent</div>
+                    <div class="skill-desc">Redline summaries, key term extraction, signature status tracking, renewal alerts.</div>
+                    <div class="skill-tags"><span class="skill-tag">Contracts</span><span class="skill-tag">Legal</span></div>
+                  </div>
+                  <div class="pack-cta">All skills are fully customizable to your voice, tools, and workflows.</div>
+                </div>
+
+                <!-- Operations Pack -->
+                <div class="pack-content" id="pack-ops">
+                  <div class="skill-card">
+                    <div class="skill-name">Task Router</div>
+                    <div class="skill-desc">Triage incoming work, assign to right person, surface priority items before EOD.</div>
+                    <div class="skill-tags"><span class="skill-tag">Routing</span><span class="skill-tag">Triage</span></div>
+                  </div>
+                  <div class="skill-card">
+                    <div class="skill-name">Meeting Prep Agent</div>
+                    <div class="skill-desc">Auto-generated briefs, attendee context, open action items, agenda drafts.</div>
+                    <div class="skill-tags"><span class="skill-tag">Meetings</span><span class="skill-tag">Prep</span></div>
+                  </div>
+                  <div class="skill-card">
+                    <div class="skill-name">Transcript Agent</div>
+                    <div class="skill-desc">Action item extraction, decision logging, follow-up routing, summary delivery.</div>
+                    <div class="skill-tags"><span class="skill-tag">Meetings</span><span class="skill-tag">Actions</span></div>
+                  </div>
+                  <div class="skill-card">
+                    <div class="skill-name">Onboarding Agent</div>
+                    <div class="skill-desc">New hire checklist tracking, resource routing, manager nudges, day-30 check-in.</div>
+                    <div class="skill-tags"><span class="skill-tag">HR</span><span class="skill-tag">Onboarding</span></div>
+                  </div>
+                  <div class="skill-card">
+                    <div class="skill-name">Vendor Monitor</div>
+                    <div class="skill-desc">Contract renewal alerts, invoice status, SLA tracking, subscription audit.</div>
+                    <div class="skill-tags"><span class="skill-tag">Vendors</span><span class="skill-tag">Contracts</span></div>
+                  </div>
+                  <div class="skill-card">
+                    <div class="skill-name">Morning Brief Agent</div>
+                    <div class="skill-desc">Daily digest across email, calendar, tasks, and pipeline — delivered before 7 AM.</div>
+                    <div class="skill-tags"><span class="skill-tag">Briefing</span><span class="skill-tag">Daily</span></div>
+                  </div>
+                  <div class="pack-cta">All skills are fully customizable to your voice, tools, and workflows.</div>
+                </div>
+
+                <!-- Finance Pack -->
+                <div class="pack-content" id="pack-fin">
+                  <div class="skill-card">
+                    <div class="skill-name">Budget Monitor</div>
+                    <div class="skill-desc">Variance alerts, over-budget flags, approval routing, weekly spend surface.</div>
+                    <div class="skill-tags"><span class="skill-tag">Budget</span><span class="skill-tag">Alerts</span></div>
+                  </div>
+                  <div class="skill-card">
+                    <div class="skill-name">Invoice Agent</div>
+                    <div class="skill-desc">Overdue tracking, payment status, follow-up drafts, AR aging surface.</div>
+                    <div class="skill-tags"><span class="skill-tag">Invoicing</span><span class="skill-tag">AR</span></div>
+                  </div>
+                  <div class="skill-card">
+                    <div class="skill-name">Report Agent</div>
+                    <div class="skill-desc">Weekly financial digest, board summary drafts, KPI delta surface.</div>
+                    <div class="skill-tags"><span class="skill-tag">Reporting</span><span class="skill-tag">Board</span></div>
+                  </div>
+                  <div class="skill-card">
+                    <div class="skill-name">Expense Agent</div>
+                    <div class="skill-desc">Categorization, policy flag, approval routing, out-of-pocket reimbursement tracking.</div>
+                    <div class="skill-tags"><span class="skill-tag">Expenses</span><span class="skill-tag">Approval</span></div>
+                  </div>
+                  <div class="skill-card">
+                    <div class="skill-name">Payroll Monitor</div>
+                    <div class="skill-desc">Run confirmation, discrepancy flags, compliance reminders, period close nudges.</div>
+                    <div class="skill-tags"><span class="skill-tag">Payroll</span><span class="skill-tag">Compliance</span></div>
+                  </div>
+                  <div class="skill-card">
+                    <div class="skill-name">Forecast Agent</div>
+                    <div class="skill-desc">Pipeline-to-revenue bridge, burn rate, runway surface, scenario comparison drafts.</div>
+                    <div class="skill-tags"><span class="skill-tag">Forecasting</span><span class="skill-tag">Runway</span></div>
+                  </div>
+                  <div class="pack-cta">All skills are fully customizable to your voice, tools, and workflows.</div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
         </div><!-- /carousel-viewport -->
 
         <!-- Scene tabs -->
@@ -1703,6 +1905,7 @@
           <button class="carousel-tab" data-scene="2">Calendar</button>
           <button class="carousel-tab" data-scene="3">Org chart</button>
           <button class="carousel-tab" data-scene="4">Live activity</button>
+          <button class="carousel-tab" data-scene="5">Skill packs</button>
         </div>
       </div><!-- /carousel-wrap -->
     </div>
@@ -1829,7 +2032,7 @@
         <div class="form-success" id="form-success" role="alert">
           You are on the list. The first build journal drops this week.
         </div>
-        <p class="waitlist-disclaimer fade-up delay-3">No spam. Unsubscribe any time.</p>
+        <p class="waitlist-disclaimer fade-up delay-3">No spam. Unsubscribe any time. &nbsp;·&nbsp; <a href="https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7417755981280874496" target="_blank" rel="noopener" style="color:var(--indigo); text-decoration:none; font-weight:500;">Follow the newsletter on LinkedIn →</a></p>
         <div class="client-note fade-up delay-4" style="background:rgba(88,96,168,0.07); border-color:var(--border-mid); border-width:1.5px;">
           <strong style="color:var(--indigo);">Already a SkillSpout client?</strong> You have first-look access to ExoCog as part of your engagement, including early preview builds and industry-ready skill packs customized to your workflows. Reach out to your account team directly, or <a href="https://skillspout.com">visit skillspout.com</a>.
         </div>
@@ -1853,6 +2056,15 @@
   </footer>
 
   <script>
+    // Skill pack tab switcher
+    function switchPack(btn, packId) {
+      const scene = btn.closest('.cscene');
+      scene.querySelectorAll('.pack-tab').forEach(t => t.classList.remove('active'));
+      scene.querySelectorAll('.pack-content').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(packId).classList.add('active');
+    }
+
     // Nav scroll state
     const mainNav = document.getElementById('nav');
     window.addEventListener('scroll', () => {
@@ -1892,7 +2104,7 @@
     const scenes   = document.querySelectorAll('.cscene');
     const tabs     = document.querySelectorAll('.carousel-tab');
     const urlBar   = document.getElementById('cbbar-url');
-    const urls     = ['app.exocog.ai/dashboard','app.exocog.ai/calendar','app.exocog.ai/agents','app.exocog.ai/activity'];
+    const urls     = ['app.exocog.ai/dashboard','app.exocog.ai/calendar','app.exocog.ai/agents','app.exocog.ai/activity','app.exocog.ai/skill-packs'];
     let current    = 0;
     let autoTimer;
 
