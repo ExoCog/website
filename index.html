@@ -1173,6 +1173,61 @@
       .waitlist-form .btn { border-radius: var(--radius-sm); width: 100%; justify-content: center; }
       .footer-inner { flex-direction: column; align-items: flex-start; gap: 14px; }
     }
+    /* ─── Contact modal ────────────────────────────────────── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(28, 28, 46, 0.55);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-mid);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      width: 100%;
+      max-width: 480px;
+      position: relative;
+      box-shadow: 0 32px 80px rgba(28,28,46,0.22);
+    }
+    .modal-close {
+      position: absolute;
+      top: 16px; right: 16px;
+      background: none; border: none;
+      font-size: 20px; color: var(--text-3);
+      cursor: pointer; line-height: 1;
+      padding: 4px 8px;
+      border-radius: 4px;
+      transition: color 0.15s, background 0.15s;
+    }
+    .modal-close:hover { color: var(--text-1); background: var(--bg-subtle); }
+    .modal-card h3 { font-size: 20px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 6px; }
+    .modal-card .modal-sub { font-size: 14px; color: var(--text-2); margin-bottom: 24px; }
+    .modal-fields { display: flex; flex-direction: column; gap: 10px; }
+    .modal-input {
+      background: var(--bg-base);
+      border: 1.5px solid var(--border-mid);
+      border-radius: var(--radius-sm);
+      padding: 11px 15px;
+      font-size: 14px;
+      font-family: var(--font-sans);
+      color: var(--text-1);
+      outline: none;
+      width: 100%;
+      transition: border-color 0.16s;
+    }
+    .modal-input::placeholder { color: var(--text-3); }
+    .modal-input:focus { border-color: var(--indigo); }
+    .modal-textarea { resize: vertical; min-height: 100px; }
+    .modal-success { display: none; text-align: center; padding: 16px 0; }
+    .modal-success-icon { font-size: 32px; margin-bottom: 10px; }
+    .modal-success h4 { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+    .modal-success p { font-size: 14px; color: var(--text-2); }
   </style>
 </head>
 <body>
@@ -1184,7 +1239,7 @@
   <!-- ─── Utility bar ─────────────────────────────────────── -->
   <div class="util-bar">
     <a href="https://skillspout.com" class="util-link" target="_blank" rel="noopener">SkillSpout</a>
-    <a href="mailto:hello@exocog.ai" class="util-link">Contact us</a>
+    <a href="#" class="util-link" id="contact-trigger-bar">Contact us</a>
   </div>
 
   <!-- ─── Nav ─────────────────────────────────────────────── -->
@@ -2097,10 +2152,30 @@
       </div>
       <nav class="footer-links" aria-label="Footer navigation">
         <a href="https://skillspout.com" target="_blank" rel="noopener">SkillSpout</a>
-        <a href="mailto:hello@exocog.ai">Contact</a>
+        <a href="#" id="contact-trigger-footer">Contact</a>
       </nav>
     </div>
   </footer>
+
+  <!-- ─── Contact modal ─────────────────────────────────────── -->
+  <div class="modal-overlay" id="contact-modal" role="dialog" aria-modal="true" aria-labelledby="contact-modal-title">
+    <div class="modal-card">
+      <button class="modal-close" id="contact-modal-close" aria-label="Close">&times;</button>
+      <h3 id="contact-modal-title">Get in touch</h3>
+      <p class="modal-sub">We'll get back to you at hello@exocog.ai.</p>
+      <form class="modal-fields" id="contact-form">
+        <input class="modal-input" type="text" name="name" placeholder="Your name (optional)" autocomplete="name">
+        <input class="modal-input" type="email" name="email" placeholder="Your email" required autocomplete="email">
+        <textarea class="modal-input modal-textarea" name="message" placeholder="What's on your mind? (optional)"></textarea>
+        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">Send message</button>
+      </form>
+      <div class="modal-success" id="contact-success">
+        <div class="modal-success-icon">✓</div>
+        <h4>Message received.</h4>
+        <p>We'll be in touch shortly.</p>
+      </div>
+    </div>
+  </div>
 
   <script>
     // Skill pack tab switcher
@@ -2197,7 +2272,7 @@
       submitBtn.disabled = true;
 
       try {
-        const payload = { email, embed: '1' };
+        const payload = { email, embed: '1', tag: 'waitlist' };
         if (comment) payload['metadata[comment]'] = comment;
         const res = await fetch('https://buttondown.email/api/emails/embed-subscribe/exocog', {
           method: 'POST',
@@ -2212,6 +2287,47 @@
       } catch {
         // CORS or network issue — fall back to native form submission
         form.submit();
+      }
+    });
+    // Contact modal
+    const modal       = document.getElementById('contact-modal');
+    const contactForm = document.getElementById('contact-form');
+    const contactSuccess = document.getElementById('contact-success');
+
+    function openModal(e) { e.preventDefault(); modal.classList.add('open'); }
+    function closeModal()  { modal.classList.remove('open'); }
+
+    document.getElementById('contact-trigger-bar').addEventListener('click', openModal);
+    document.getElementById('contact-trigger-footer').addEventListener('click', openModal);
+    document.getElementById('contact-modal-close').addEventListener('click', closeModal);
+    modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+    contactForm.addEventListener('submit', async e => {
+      e.preventDefault();
+      const email   = contactForm.querySelector('input[type="email"]').value.trim();
+      const name    = contactForm.querySelector('input[name="name"]').value.trim();
+      const message = contactForm.querySelector('textarea[name="message"]').value.trim();
+      if (!email || !email.includes('@')) return;
+
+      const submitBtn = contactForm.querySelector('button[type="submit"]');
+      submitBtn.textContent = 'Sending…';
+      submitBtn.disabled = true;
+
+      try {
+        const payload = { email, embed: '1', tag: 'contact' };
+        if (name)    payload['metadata[name]']    = name;
+        if (message) payload['metadata[message]'] = message;
+        await fetch('https://buttondown.email/api/emails/embed-subscribe/exocog', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(payload)
+        });
+        contactForm.style.display = 'none';
+        contactSuccess.style.display = 'block';
+      } catch {
+        submitBtn.textContent = 'Send message';
+        submitBtn.disabled = false;
       }
     });
   </script>
