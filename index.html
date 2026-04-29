@@ -2206,6 +2206,8 @@
         // Buttondown returns 200 on success or a redirect — both mean we're good
         form.style.display = 'none';
         success.style.display = 'block';
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ event: 'waitlist_signup', email: email });
       } catch {
         // CORS or network issue — fall back to native form submission
         form.submit();
