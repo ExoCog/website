@@ -2512,10 +2512,12 @@
         success.style.display = 'block';
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({ event: 'waitlist_signup', email: email });
-        fetch('/spots', { method: 'POST' })
-          .then(r => r.ok ? r.json() : null)
-          .then(d => { if (d) applySpots(d.remaining, d.total); })
-          .catch(() => {});
+        setTimeout(() => {
+          fetch('/spots')
+            .then(r => r.ok ? r.json() : null)
+            .then(d => { if (d?.remaining != null) applySpots(d.remaining, d.total); })
+            .catch(() => {});
+        }, 1500);
       } catch {
         submitBtn.textContent = 'Join the waitlist';
         submitBtn.disabled = false;
