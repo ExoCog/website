@@ -1354,6 +1354,48 @@
     .modal-success-icon { font-size: 32px; margin-bottom: 10px; }
     .modal-success h4 { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
     .modal-success p { font-size: 14px; color: var(--text-2); }
+
+    /* ── Urgency / countdown ─────────────────────────────── */
+    .stat-live-dot {
+      display: inline-block;
+      width: 7px; height: 7px;
+      background: var(--coral);
+      border-radius: 50%;
+      margin-right: 6px;
+      vertical-align: middle;
+      animation: blink 2s ease-in-out infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.3; }
+    }
+    .capacity-bar-wrap {
+      width: 100px;
+      height: 4px;
+      background: rgba(88,96,168,0.15);
+      border-radius: 2px;
+      margin: 10px auto 0;
+      overflow: hidden;
+    }
+    .capacity-bar-fill {
+      height: 100%;
+      background: var(--coral);
+      border-radius: 2px;
+    }
+    .waitlist-urgency {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: rgba(210,90,60,0.06);
+      border: 1px solid rgba(210,90,60,0.18);
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-size: 13.5px;
+      color: var(--text-2);
+      margin-bottom: 24px;
+    }
+    .waitlist-urgency strong { color: var(--coral); }
   </style>
 </head>
 <body>
@@ -1397,7 +1439,7 @@
       <div class="hero-left">
         <div class="hero-badge fade-up">
           <span class="hero-badge-dot" aria-hidden="true"></span>
-          Beta waitlist open &nbsp;·&nbsp; 15 partner slots
+          <span class="stat-live-dot" aria-hidden="true"></span>Closed beta open &nbsp;·&nbsp; <span id="hero-spots">12</span> of 15 spots left &nbsp;·&nbsp; <span id="hero-days">90</span> days remaining
         </div>
         <p class="hero-eyebrow fade-up">Not a chatbot. An operator.</p>
         <h1 class="fade-up delay-1">Lead the machine.</h1>
@@ -1513,12 +1555,15 @@
           <div class="stat-label">AI skills in active deployment</div>
         </div>
         <div class="stat fade-up delay-1">
-          <div class="stat-number">90</div>
-          <div class="stat-label">Day closed beta window</div>
+          <div class="stat-number"><span class="stat-live-dot" aria-hidden="true"></span><span id="stat-days">90</span></div>
+          <div class="stat-label">Days left in closed beta</div>
         </div>
         <div class="stat fade-up delay-3">
-          <div class="stat-number">15</div>
-          <div class="stat-label">Beta partner slots available</div>
+          <div class="stat-number"><span id="stat-spots">12</span></div>
+          <div class="stat-label">Partner spots remaining</div>
+          <div class="capacity-bar-wrap" title="3 of 15 spots taken">
+            <div class="capacity-bar-fill" id="spots-bar" style="width:20%"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -2269,6 +2314,10 @@
           <span class="perk"><span class="perk-dot"></span>Straight answer on pricing, the first time you ask</span>
         </div>
 
+        <div class="waitlist-urgency fade-up delay-2">
+          <span class="stat-live-dot" aria-hidden="true"></span>
+          <strong><span id="waitlist-spots">12</span> of 15 partner slots remain.</strong>&nbsp; Closed beta closes in <span id="waitlist-days">90</span> days.
+        </div>
         <form class="waitlist-form fade-up delay-3"
               id="waitlist-form"
               novalidate>
@@ -2510,6 +2559,31 @@
         submitBtn.disabled = false;
       }
     });
+  </script>
+
+  <script>
+    // ── Beta countdown + spots ────────────────────────────────
+    // Update BETA_START if beta opened on a different date.
+    // Update SPOTS_REMAINING as partners join.
+    const BETA_START     = new Date('2026-04-29T00:00:00');
+    const BETA_DAYS      = 90;
+    const SPOTS_TOTAL    = 15;
+    const SPOTS_REMAINING = 12;
+
+    const betaEnd  = new Date(BETA_START.getTime() + BETA_DAYS * 864e5);
+    const daysLeft = Math.max(0, Math.ceil((betaEnd - Date.now()) / 864e5));
+    const spotsTaken = SPOTS_TOTAL - SPOTS_REMAINING;
+
+    ['stat-days','hero-days','waitlist-days'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = daysLeft;
+    });
+    ['stat-spots','hero-spots','waitlist-spots'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = SPOTS_REMAINING;
+    });
+    const bar = document.getElementById('spots-bar');
+    if (bar) bar.style.width = ((spotsTaken / SPOTS_TOTAL) * 100) + '%';
   </script>
 </body>
 </html>
