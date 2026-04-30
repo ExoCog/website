@@ -2512,6 +2512,10 @@
         success.style.display = 'block';
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({ event: 'waitlist_signup', email: email });
+        fetch('/spots', { method: 'POST' })
+          .then(r => r.ok ? r.json() : null)
+          .then(d => { if (d) applySpots(d.remaining, d.total); })
+          .catch(() => {});
       } catch {
         submitBtn.textContent = 'Join the waitlist';
         submitBtn.disabled = false;
@@ -2562,28 +2566,34 @@
   </script>
 
   <script>
-    // ── Beta countdown + spots ────────────────────────────────
-    // Update BETA_START if beta opened on a different date.
-    // Update SPOTS_REMAINING as partners join.
-    const BETA_START     = new Date('2026-04-29T00:00:00');
-    const BETA_DAYS      = 90;
-    const SPOTS_TOTAL    = 15;
-    const SPOTS_REMAINING = 12;
-
-    const betaEnd  = new Date(BETA_START.getTime() + BETA_DAYS * 864e5);
-    const daysLeft = Math.max(0, Math.ceil((betaEnd - Date.now()) / 864e5));
-    const spotsTaken = SPOTS_TOTAL - SPOTS_REMAINING;
-
+    // ── Beta countdown ────────────────────────────────────────
+    // Update BETA_START if the beta opened on a different date.
+    const BETA_START = new Date('2026-04-29T00:00:00');
+    const BETA_DAYS  = 90;
+    const betaEnd    = new Date(BETA_START.getTime() + BETA_DAYS * 864e5);
+    const daysLeft   = Math.max(0, Math.ceil((betaEnd - Date.now()) / 864e5));
     ['stat-days','hero-days','waitlist-days'].forEach(id => {
       const el = document.getElementById(id);
       if (el) el.textContent = daysLeft;
     });
-    ['stat-spots','hero-spots','waitlist-spots'].forEach(id => {
-      const el = document.getElementById(id);
-      if (el) el.textContent = SPOTS_REMAINING;
-    });
-    const bar = document.getElementById('spots-bar');
-    if (bar) bar.style.width = ((spotsTaken / SPOTS_TOTAL) * 100) + '%';
+
+    // ── Spots counter (live from /spots endpoint) ─────────────
+    function applySpots(remaining, total) {
+      ['stat-spots','hero-spots','waitlist-spots'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = remaining;
+      });
+      const bar = document.getElementById('spots-bar');
+      if (bar) bar.style.width = (((total - remaining) / total) * 100) + '%';
+    }
+
+    // Seed with hardcoded fallback while fetch is in flight
+    applySpots(12, 15);
+
+    fetch('/spots')
+      .then(r => r.ok ? r.json() : null)
+      .then(d => { if (d) applySpots(d.remaining, d.total); })
+      .catch(() => {});
   </script>
 </body>
 </html>
