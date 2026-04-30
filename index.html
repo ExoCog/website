@@ -2512,12 +2512,8 @@
         success.style.display = 'block';
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({ event: 'waitlist_signup', email: email });
-        setTimeout(() => {
-          fetch('/spots')
-            .then(r => r.ok ? r.json() : null)
-            .then(d => { if (d?.remaining != null) applySpots(d.remaining, d.total); })
-            .catch(() => {});
-        }, 1500);
+        spotsRemaining = Math.max(0, spotsRemaining - 1);
+        applySpots(spotsRemaining);
       } catch {
         submitBtn.textContent = 'Join the waitlist';
         submitBtn.disabled = false;
@@ -2579,23 +2575,21 @@
       if (el) el.textContent = daysLeft;
     });
 
-    // ── Spots counter (live from /spots endpoint) ─────────────
-    function applySpots(remaining, total) {
+    // ── Spots counter ─────────────────────────────────────────
+    // Update SPOTS_REMAINING manually as partners join.
+    const SPOTS_TOTAL     = 15;
+    let   spotsRemaining  = 12;
+
+    function applySpots(remaining) {
       ['stat-spots','hero-spots','waitlist-spots'].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.textContent = remaining;
       });
       const bar = document.getElementById('spots-bar');
-      if (bar) bar.style.width = (((total - remaining) / total) * 100) + '%';
+      if (bar) bar.style.width = (((SPOTS_TOTAL - remaining) / SPOTS_TOTAL) * 100) + '%';
     }
 
-    // Seed with hardcoded fallback while fetch is in flight
-    applySpots(12, 15);
-
-    fetch('/spots')
-      .then(r => r.ok ? r.json() : null)
-      .then(d => { if (d) applySpots(d.remaining, d.total); })
-      .catch(() => {});
+    applySpots(spotsRemaining);
   </script>
 </body>
 </html>
