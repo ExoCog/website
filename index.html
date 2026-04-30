@@ -157,10 +157,23 @@
       background: var(--indigo);
       display: flex;
       align-items: center;
-      gap: 0;
+      justify-content: space-between;
       padding: 0 24px;
-      height: 32px;
+      height: 40px;
     }
+    .util-message {
+      font-size: 12.5px;
+      color: rgba(255,255,255,0.75);
+      font-weight: 400;
+    }
+    .util-message a {
+      color: #fff;
+      font-weight: 600;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,0.4);
+      transition: border-color 0.15s;
+    }
+    .util-message a:hover { border-color: #fff; }
     .util-link {
       display: inline-flex;
       align-items: center;
@@ -180,7 +193,7 @@
     /* ─── Nav ──────────────────────────────────────────────── */
     nav#nav {
       position: fixed;
-      top: 32px; left: 0; right: 0;
+      top: 40px; left: 0; right: 0;
       z-index: 100;
       background: var(--bg-base);
       border-bottom: 1px solid var(--border);
@@ -207,19 +220,19 @@
       flex-shrink: 0;
     }
     .nav-logo-mark {
-      width: 32px; height: 32px;
+      width: 40px; height: 40px;
       background: var(--coral);
-      border-radius: 8px;
+      border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-family: var(--font-mono);
-      font-size: 12px;
+      font-size: 14px;
       font-weight: 500;
       color: #fff;
       flex-shrink: 0;
     }
-    .nav-logo-text { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; }
+    .nav-logo-text { font-size: 19px; font-weight: 700; letter-spacing: -0.02em; white-space: nowrap; }
     .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
     .nav-links a {
       color: var(--text-2);
@@ -287,7 +300,7 @@
 
     /* ─── Hero ─────────────────────────────────────────────── */
     .hero {
-      padding: 200px 0 96px;
+      padding: 208px 0 96px;
       position: relative;
       overflow: hidden;
     }
@@ -385,7 +398,7 @@
     }
     .stats-inner {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
     }
     .stat {
       padding: 32px 28px;
@@ -1162,7 +1175,7 @@
       .steps { grid-template-columns: 1fr; }
       .steps::before { display: none; }
       .bridge-card { grid-template-columns: 1fr; padding: 36px 28px; }
-      .stats-inner { grid-template-columns: repeat(2, 1fr); }
+      .stats-inner { grid-template-columns: repeat(3, 1fr); }
       .stat { border-right: none; border-bottom: 1px solid var(--border); }
       .stat:nth-child(2n), .stat:last-child { border-bottom: none; }
     }
@@ -1173,6 +1186,88 @@
       .waitlist-form .btn { border-radius: var(--radius-sm); width: 100%; justify-content: center; }
       .footer-inner { flex-direction: column; align-items: flex-start; gap: 14px; }
     }
+    /* ─── Trust / delegation section ──────────────────────── */
+    .trust { padding: 96px 0; background: var(--bg-base); }
+    .trust-header { max-width: 600px; margin-bottom: 56px; }
+    .trust-cols {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .trust-col {
+      border-radius: var(--radius-md);
+      padding: 32px 28px;
+      border: 1.5px solid transparent;
+    }
+    .trust-col-jade  { background: var(--jade-bg);  border-color: rgba(74,99,93,0.18); }
+    .trust-col-coral { background: var(--coral-bg); border-color: rgba(210,90,60,0.18); }
+    .trust-col-indigo{ background: var(--indigo-bg); border-color: var(--border-mid); }
+    .trust-col-icon {
+      width: 36px; height: 36px;
+      border-radius: 9px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 17px;
+      margin-bottom: 16px;
+    }
+    .trust-col-jade  .trust-col-icon { background: rgba(74,99,93,0.12); }
+    .trust-col-coral .trust-col-icon { background: rgba(210,90,60,0.1); }
+    .trust-col-indigo .trust-col-icon { background: var(--indigo-bg-mid); }
+    .trust-col h3 {
+      font-size: 14.5px; font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 6px;
+    }
+    .trust-col-jade  h3 { color: var(--jade); }
+    .trust-col-coral h3 { color: var(--coral); }
+    .trust-col-indigo h3 { color: var(--indigo); }
+    .trust-col-lead {
+      font-size: 13px; color: var(--text-2);
+      line-height: 1.65; margin-bottom: 18px;
+    }
+    .trust-items { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .trust-item {
+      font-size: 13px; color: var(--text-2);
+      display: flex; align-items: flex-start; gap: 8px; line-height: 1.5;
+    }
+    .trust-dot {
+      width: 5px; height: 5px; border-radius: 50%;
+      flex-shrink: 0; margin-top: 6px;
+    }
+    .trust-col-jade  .trust-dot { background: var(--jade); }
+    .trust-col-coral .trust-dot { background: var(--coral); }
+    .trust-col-indigo .trust-dot { background: var(--indigo); }
+    @media (max-width: 760px) { .trust-cols { grid-template-columns: 1fr; } }
+
+    /* ─── Founder story ────────────────────────────────────── */
+    .founder { padding: 80px 0; background: var(--bg-surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .founder-inner { max-width: 680px; margin: 0 auto; text-align: center; }
+    .founder-quote {
+      font-size: clamp(17px, 2vw, 21px);
+      font-weight: 500;
+      line-height: 1.72;
+      color: var(--text-1);
+      letter-spacing: -0.01em;
+      margin-bottom: 28px;
+    }
+    .founder-quote p { margin-bottom: 14px; }
+    .founder-quote p:last-child { margin-bottom: 0; }
+    .founder-byline { display: flex; align-items: center; justify-content: center; gap: 10px; }
+    .founder-byline-mark {
+      width: 30px; height: 30px;
+      background: var(--coral);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 700; color: #fff;
+      font-family: var(--font-mono); flex-shrink: 0;
+    }
+    .founder-byline-name { font-size: 13px; font-weight: 600; color: var(--text-2); }
+    .founder-byline-role { font-size: 12px; color: var(--text-3); }
+
+    /* ─── Bridge strip (minimal) ────────────────────────────── */
+    .bridge-strip { padding: 48px 0; background: var(--bg-subtle); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .bridge-strip-inner { max-width: 600px; margin: 0 auto; text-align: center; }
+    .bridge-strip-inner p { font-size: 15.5px; color: var(--text-2); line-height: 1.72; margin-bottom: 20px; }
+
     /* ─── Contact modal ────────────────────────────────────── */
     .modal-overlay {
       display: none;
@@ -1238,7 +1333,7 @@
 
   <!-- ─── Utility bar ─────────────────────────────────────── -->
   <div class="util-bar">
-    <a href="https://skillspout.com" class="util-link" target="_blank" rel="noopener">SkillSpout</a>
+    <span class="util-message">Not ready to install? <a href="https://skillspout.com" target="_blank" rel="noopener">SkillSpout builds ExoCog patterns into your existing tools — no migration, no new platform. Learn about the Hours Back Sprint →</a></span>
     <a href="#" class="util-link" id="contact-trigger-bar">Contact us</a>
   </div>
 
@@ -1251,6 +1346,7 @@
       </a>
       <ul class="nav-links" role="list">
         <li><a href="#what">What it is</a></li>
+
         <li><a href="#demo">Demo</a></li>
         <li><a href="#how">How it works</a></li>
         <li><a href="#skillspout">For businesses</a></li>
@@ -1272,13 +1368,13 @@
           <span class="hero-badge-dot" aria-hidden="true"></span>
           Beta waitlist open &nbsp;·&nbsp; 15 partner slots
         </div>
-        <p class="hero-eyebrow fade-up">ExoCog</p>
+        <p class="hero-eyebrow fade-up">Not a chatbot. An operator.</p>
         <h1 class="fade-up delay-1">Lead the machine.</h1>
         <p class="hero-h2 fade-up delay-2">
           The AI operating layer that routes work, surfaces priorities, and acts within the boundaries your team sets.
         </p>
         <p class="hero-sub fade-up delay-2">
-          ExoCog gives your team 10x more operational capacity. It routes tasks to the right people, surfaces what needs attention before it becomes urgent, and handles everything within your defined boundaries, autonomously, on schedule, every day. Stop being the router. Let ExoCog run it.
+          ExoCog runs the work that falls through the gaps: the follow-ups, the briefs, the pipeline health checks, the task routing. On a schedule, within the boundaries your team sets, every day. It routes to the right person, surfaces what needs a decision, and handles everything else. Stop being the router.
         </p>
         <div class="hero-ctas fade-up delay-3">
           <a href="#waitlist" class="btn btn-primary btn-lg">Join the waitlist</a>
@@ -1287,15 +1383,11 @@
         <div class="hero-trust fade-up delay-4">
           <span class="hero-trust-item">
             <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 1l1.4 3.8h4l-3.2 2.3 1.2 3.8-3.4-2.5-3.4 2.5 1.2-3.8L1.1 4.8h4z" fill="#C89A4A"/></svg>
-            Cleveland Magazine Community Leader
+            Built and run by the founder, daily
           </span>
           <span class="hero-trust-item">
             <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5" stroke="#9898A8" stroke-width="1.2"/><path d="M6.5 4v2.5l1.5 1.5" stroke="#9898A8" stroke-width="1.2" stroke-linecap="round"/></svg>
             90+ AI skills in active deployment
-          </span>
-          <span class="hero-trust-item">
-            <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 3.5h9v6a1.5 1.5 0 01-1.5 1.5h-6A1.5 1.5 0 012 9.5v-6z" stroke="#9898A8" stroke-width="1.2"/><path d="M4.5 3.5V2.5a2 2 0 014 0v1" stroke="#9898A8" stroke-width="1.2"/></svg>
-            Architecture pattern published and free to read
           </span>
         </div>
       </div>
@@ -1307,7 +1399,7 @@
             <span class="hv-bd hv-bd-r"></span>
             <span class="hv-bd hv-bd-y"></span>
             <span class="hv-bd hv-bd-g"></span>
-            <span class="hv-url">app.exocog.ai / org-chart</span>
+            <span class="hv-url">exocog.ai / org-chart</span>
             <span class="hv-live"><span class="org-pulse"></span>Live</span>
           </div>
           <div class="hv-body">
@@ -1390,10 +1482,6 @@
           <div class="stat-label">AI skills in active deployment</div>
         </div>
         <div class="stat fade-up delay-1">
-          <div class="stat-number">10x</div>
-          <div class="stat-label">Operational capacity per person</div>
-        </div>
-        <div class="stat fade-up delay-2">
           <div class="stat-number">90</div>
           <div class="stat-label">Day closed beta window</div>
         </div>
@@ -1409,7 +1497,7 @@
   <section class="what" id="what">
     <div class="container">
       <div class="what-header fade-up">
-        <p class="section-label">What it is</p>
+        <p class="section-label">Not a tool. An operator.</p>
         <h2>An operator, not a tool.</h2>
         <p class="section-lead">
           Most AI tools wait for you to ask them something. ExoCog runs your operations the same way a chief of staff does: it knows your calendar, your pipeline, your clients, and your priorities, and it acts on them within the boundaries your team defines.
@@ -1424,28 +1512,99 @@
         <div class="feature fade-up delay-1">
           <div class="feature-icon" aria-hidden="true">⚡</div>
           <h3>Built by operators, for teams</h3>
-          <p>ExoCog was built in production, not in a lab. It has been running email triage, sales prep, client delivery, and reporting across entire organizations for months, not just for one person at the top of a company.</p>
-        </div>
-        <div class="feature fade-up delay-2">
-          <div class="feature-icon" aria-hidden="true">📐</div>
-          <h3>Open architecture</h3>
-          <p>The methodology behind ExoCog is published as a free public artifact. You can read it, build your own version, and argue with it. The pattern is the product. The code is ExoCog's.</p>
+          <p>ExoCog was built in production, not in a lab. The methodology was proven before the product was announced.</p>
         </div>
         <div class="feature fade-up">
           <div class="feature-icon" aria-hidden="true">🔗</div>
           <h3>Built on Claude Code + MCP</h3>
-          <p>ExoCog runs on Claude Code and the Model Context Protocol, the open standard for AI tool integrations. We guide every installation personally. What ExoCog can connect to grows with every MCP server the community builds, and we help you wire in the ones that matter for your operation.</p>
+          <p>ExoCog runs on Claude Code and the Model Context Protocol, the open standard for AI tool integrations. We guide every installation personally and build the MCP integrations that connect to the tools that matter for your operation.</p>
         </div>
         <div class="feature fade-up delay-1">
           <div class="feature-icon" aria-hidden="true">🧠</div>
           <h3>Agentic by design</h3>
           <p>ExoCog does not wait for instructions. It runs proactive agents on a schedule across your team, surfaces what needs attention before anyone asks, and handles follow-through on work that would otherwise get dropped.</p>
         </div>
+        <div class="feature fade-up delay-1">
+          <div class="feature-icon" aria-hidden="true">🔒</div>
+          <h3>Infrastructure, not an app</h3>
+          <p>ExoCog has no chat interface — you don't prompt it. It runs inside your environment on your own infrastructure. Your data stays in your stack, not ours. ExoCog is not software you log into. It is the layer your operation runs on.</p>
+        </div>
         <div class="feature fade-up delay-2">
           <div class="feature-icon" aria-hidden="true">📦</div>
           <h3>Industry-ready skill packs</h3>
-          <p>ExoCog ships with curated skill packs for professional services, technology, healthcare, manufacturing, and more. Each pack is fully customizable to your workflows, terminology, and tools, so your team is operational from day one, not month six.</p>
+          <p>ExoCog can be configured with curated skill packs built for your industry — professional services, technology, healthcare, manufacturing, and more. Each pack is built to your workflows, terminology, and tools. Your team is operational from day one, not month six.</p>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Founder story ──────────────────────────────────────── -->
+  <section class="founder">
+    <div class="container">
+      <div class="founder-inner fade-up">
+        <div class="founder-quote">
+          <p>ExoCog runs my companies.</p>
+          <p>Not as a demo. Not as a pilot. As the actual layer I depend on to operate SkillSpout and We Can Code IT. Every morning, before I open my inbox, ExoCog has already scanned my email, filed action items, prepped my meetings, and flagged anything that needed a person. It has been doing this for months. The pitch came after the proof.</p>
+        </div>
+        <div class="founder-byline">
+          <div class="founder-byline-mark">M</div>
+          <div>
+            <div class="founder-byline-name">Mel McGee</div>
+            <div class="founder-byline-role">CEO, SkillSpout + We Can Code IT</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Trust / delegation ──────────────────────────────── -->
+  <section class="trust">
+    <div class="container">
+      <div class="trust-header fade-up">
+        <p class="section-label">How it stays safe</p>
+        <h2>Trusted to act. Built to delegate.</h2>
+        <p class="section-lead">ExoCog runs on a trust ladder your team sets. It handles what it is trusted with, routes everything else to the right person, and keeps a full log of every action taken — by the agents and by your team — in one place.</p>
+      </div>
+      <div class="trust-cols">
+
+        <div class="trust-col trust-col-jade fade-up">
+          <div class="trust-col-icon">✓</div>
+          <h3>Handled autonomously</h3>
+          <p class="trust-col-lead">Work ExoCog runs on its own, on schedule, within the boundaries your team defines. No prompt required.</p>
+          <ul class="trust-items">
+            <li class="trust-item"><span class="trust-dot"></span>Email triage — scans, extracts action items, archives noise</li>
+            <li class="trust-item"><span class="trust-dot"></span>Meeting briefs — pulled from client context, calendar, and open tasks</li>
+            <li class="trust-item"><span class="trust-dot"></span>Pipeline health — flags stale deals and missing follow-ups before you ask</li>
+            <li class="trust-item"><span class="trust-dot"></span>Task routing — files and assigns work to the right person automatically</li>
+            <li class="trust-item"><span class="trust-dot"></span>Draft outbound comms — in your voice, ready for your review before anything sends</li>
+          </ul>
+        </div>
+
+        <div class="trust-col trust-col-coral fade-up delay-1">
+          <div class="trust-col-icon">↑</div>
+          <h3>Always routed to you</h3>
+          <p class="trust-col-lead">ExoCog surfaces these — it never decides for you. Your boundaries define what stays with a human.</p>
+          <ul class="trust-items">
+            <li class="trust-item"><span class="trust-dot"></span>Anything containing PII — never processed beyond flagging</li>
+            <li class="trust-item"><span class="trust-dot"></span>Decisions outside your defined trust boundaries</li>
+            <li class="trust-item"><span class="trust-dot"></span>Approvals before anything sends or changes externally</li>
+            <li class="trust-item"><span class="trust-dot"></span>Anything the system flags as uncertain or ambiguous</li>
+            <li class="trust-item"><span class="trust-dot"></span>Anything that touches money, contracts, or compliance</li>
+          </ul>
+        </div>
+
+        <div class="trust-col trust-col-indigo fade-up delay-2">
+          <div class="trust-col-icon">◎</div>
+          <h3>Everything in one view</h3>
+          <p class="trust-col-lead">Your team's tasks and the agents' tasks sit in the same dashboard. Nothing runs in the dark.</p>
+          <ul class="trust-items">
+            <li class="trust-item"><span class="trust-dot"></span>Full activity log — every agent action, timestamped and attributed</li>
+            <li class="trust-item"><span class="trust-dot"></span>Team task visibility — who owns what, what is waiting, what is overdue</li>
+            <li class="trust-item"><span class="trust-dot"></span>Agent status — what each agent is running and when it last acted</li>
+            <li class="trust-item"><span class="trust-dot"></span>Trust ladder settings — review, adjust, or tighten boundaries at any time</li>
+          </ul>
+        </div>
+
       </div>
     </div>
   </section>
@@ -1461,10 +1620,11 @@
             Every morning, ExoCog runs a brief: email scanned, meetings prepped, priorities surfaced, tasks filed. No prompting. No opening a tab. Just a working layer doing its job.
           </p>
           <ul class="demo-bullets">
-            <li><span class="check-icon" aria-hidden="true"></span>Scans your email accounts and extracts action items before you open your inbox</li>
-            <li><span class="check-icon" aria-hidden="true"></span>Prepares a brief for every meeting on your calendar, pulled from client context and recent history</li>
-            <li><span class="check-icon" aria-hidden="true"></span>Surfaces overdue tasks, stale pipeline deals, and anything that needs a human decision today</li>
-            <li><span class="check-icon" aria-hidden="true"></span>Drafts outbound communication in your voice, ready for your review before anything sends</li>
+            <li><span class="check-icon" aria-hidden="true"></span>ExoCog scans your email and surfaces action items before you open your inbox</li>
+            <li><span class="check-icon" aria-hidden="true"></span>ExoCog prepares a brief for every meeting on your calendar, pulled from client context and recent history</li>
+            <li><span class="check-icon" aria-hidden="true"></span>ExoCog surfaces overdue tasks, stale pipeline deals, and anything that needs a human decision today</li>
+            <li><span class="check-icon" aria-hidden="true"></span>ExoCog drafts outbound communication in your voice, ready for your review before anything sends</li>
+            <li><span class="check-icon" aria-hidden="true"></span>ExoCog builds context over time — briefs get sharper, routing gets smarter, and the system stops needing to be told the same thing twice</li>
           </ul>
           <a href="#waitlist" class="btn btn-secondary btn-lg">Request demo access</a>
         </div>
@@ -1511,7 +1671,7 @@
     <div class="container">
       <div class="carousel-header fade-up">
         <p class="section-label" style="justify-content:center;">The interface</p>
-        <h2>See ExoCog in action.</h2>
+        <h2>The full picture.</h2>
         <p class="section-lead" style="margin:0 auto;">
           From the morning brief to the org chart, ExoCog runs across your whole operation, handling what it can and surfacing what it cannot.
         </p>
@@ -1522,7 +1682,7 @@
           <!-- Browser chrome -->
           <div class="cbrowser">
             <div class="cbdots"><span class="cbd cbd-r"></span><span class="cbd cbd-y"></span><span class="cbd cbd-g"></span></div>
-            <div class="cbbar" id="cbbar-url">app.exocog.ai/dashboard</div>
+            <div class="cbbar" id="cbbar-url">exocog.ai/dashboard</div>
           </div>
 
           <!-- ── Scene 1: Dashboard ── -->
@@ -2007,25 +2167,25 @@
       <div class="steps">
         <div class="step fade-up">
           <div class="step-num">01</div>
-          <h3>Install ExoCog on your environment</h3>
-          <p>ExoCog runs on Claude Code. We guide you through installation personally and connect the MCP integrations that fit your operation. Setup is a session, not a sprint.</p>
+          <h3>We install it with you, not for you</h3>
+          <p>ExoCog runs on Claude Code. We show up, connect your tools, configure your integrations, and stay until it is running. Setup is a session, not a sprint — and you understand what you have when we are done.</p>
         </div>
         <div class="step fade-up delay-1">
           <div class="step-num">02</div>
-          <h3>Define your trust ladder</h3>
-          <p>You decide what ExoCog can do autonomously and what it surfaces for your decision. The trust ladder is explicit, documented, and adjustable. You are always in the loop on anything that matters.</p>
+          <h3>You set the rules. ExoCog respects them.</h3>
+          <p>You decide what ExoCog handles on its own and what it brings to you. The trust ladder is explicit, documented, and adjustable at any time. Nothing runs outside the boundaries your team defines.</p>
         </div>
         <div class="step fade-up delay-2">
           <div class="step-num">03</div>
-          <h3>ExoCog handles the rest</h3>
-          <p>ExoCog runs on a schedule, routes work to the right people, surfaces what needs your attention, and handles everything within the boundaries you set, autonomously, every day. Work that used to fall through the gaps stops falling.</p>
+          <h3>ExoCog runs it. You review what matters.</h3>
+          <p>ExoCog runs on a schedule every day — routing work, surfacing priorities, handling follow-through. You see everything in one place. The work that used to fall through the gaps stops falling.</p>
         </div>
       </div>
       <div class="integrations fade-up" style="margin-top: 56px;">
         <span class="int-label">Powered by</span>
         <span class="int-chip">Claude Code</span>
         <span class="int-chip">MCP — Model Context Protocol</span>
-        <span class="int-chip">Growing integration library</span>
+        <span class="int-chip">ExoCog-built integrations</span>
         <span class="int-chip">Guided installation</span>
       </div>
     </div>
@@ -2038,9 +2198,7 @@
         <div>
           <p class="bridge-label">For businesses</p>
           <h2>Same patterns. Your enterprise tools.</h2>
-          <p>
-            The Hours Back Sprint does not install ExoCog. It takes the same operator patterns behind ExoCog and builds them directly into the enterprise tools your team already uses: Claude Cowork, Claude.ai, Microsoft 365, Google Workspace, Copilot, Salesforce, HubSpot, or whatever your stack is. We map what gets handed to AI and where your team stays in the loop, then build that directly into what you're already running. No new platform. No migration. Your people open the same tools tomorrow they opened today; they just get more done in them.
-          </p>
+          <p>Not ready to install a new system? SkillSpout builds these same operator patterns directly into the enterprise tools your team already uses — no new platform, no migration, no ripping anything out.</p>
           <div class="bridge-chips">
             <span class="bchip">Claude Cowork</span>
             <span class="bchip">Microsoft 365</span>
@@ -2077,7 +2235,7 @@
           <span class="perk"><span class="perk-dot"></span>See the system's architecture</span>
           <span class="perk"><span class="perk-dot"></span>Full skill manifest</span>
           <span class="perk"><span class="perk-dot"></span>Closed beta access</span>
-          <span class="perk"><span class="perk-dot"></span>Honest pricing when it's ready</span>
+          <span class="perk"><span class="perk-dot"></span>Straight answer on pricing, the first time you ask</span>
         </div>
 
         <form class="waitlist-form fade-up delay-3"
@@ -2216,7 +2374,7 @@
     const scenes   = document.querySelectorAll('.cscene');
     const tabs     = document.querySelectorAll('.carousel-tab');
     const urlBar   = document.getElementById('cbbar-url');
-    const urls     = ['app.exocog.ai/dashboard','app.exocog.ai/calendar','app.exocog.ai/agents','app.exocog.ai/activity','app.exocog.ai/skill-packs'];
+    const urls     = ['exocog.ai/dashboard','exocog.ai/calendar','exocog.ai/agents','exocog.ai/activity','exocog.ai/skill-packs'];
     let current    = 0;
     let autoTimer;
 
