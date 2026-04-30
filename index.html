@@ -25,10 +25,10 @@
   <meta name="twitter:description" content="Not a chatbot. An operator. ExoCog runs real operational work across sales, delivery, strategy, and finance every day, without being asked.">
   <meta name="twitter:image" content="https://exocog.ai/og.png">
 
+  <link rel="icon" type="image/svg+xml" sizes="16x16" href="/favicon-16.svg">
+  <link rel="icon" type="image/svg+xml" sizes="32x32" href="/favicon-32.svg">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.svg">
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -220,19 +220,29 @@
       flex-shrink: 0;
     }
     .nav-logo-mark {
-      width: 40px; height: 40px;
-      background: var(--coral);
-      border-radius: 10px;
+      width: 48px; height: 48px;
+      background: var(--indigo);
+      border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: var(--font-mono);
-      font-size: 14px;
-      font-weight: 500;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
       color: #fff;
       flex-shrink: 0;
+      position: relative;
+      overflow: hidden;
     }
-    .nav-logo-text { font-size: 19px; font-weight: 700; letter-spacing: -0.02em; white-space: nowrap; }
+    .nav-logo-mark::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 4px;
+      background: var(--coral);
+    }
+    .nav-logo-text { font-size: 20px; letter-spacing: -0.03em; white-space: nowrap; font-weight: 700; }
     .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
     .nav-links a {
       color: var(--text-2);
@@ -674,7 +684,8 @@
       flex-shrink: 0;
     }
     .cs-logo { display:flex; align-items:center; gap:8px; padding:16px 14px 12px; border-bottom:1px solid rgba(88,96,168,0.08); }
-    .cs-mark { width:24px; height:24px; background:var(--coral); border-radius:5px; display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:10px; font-weight:600; color:#fff; flex-shrink:0; }
+    .cs-mark { width:24px; height:24px; background:var(--indigo); border-radius:5px; display:flex; align-items:center; justify-content:center; font-family:'Inter',sans-serif; font-size:8px; font-weight:700; letter-spacing:-0.02em; color:#fff; flex-shrink:0; position:relative; overflow:hidden; }
+    .cs-mark::after { content:''; position:absolute; bottom:0; left:0; right:0; height:2px; background:var(--coral); }
     .cs-name { font-size:13px; font-weight:600; color:#1C1C2E; }
     .cs-nav { display:flex; align-items:center; gap:8px; padding:9px 14px; font-size:12.5px; color:#7070a0; cursor:default; }
     .cs-nav.active { background:rgba(88,96,168,0.08); color:var(--indigo); font-weight:500; border-right:2px solid var(--indigo); }
@@ -889,15 +900,25 @@
     }
     .app-sidebar-mark {
       width: 26px; height: 26px;
-      background: var(--coral);
+      background: var(--indigo);
       border-radius: 6px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: var(--font-mono);
-      font-size: 10px;
-      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
       color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .app-sidebar-mark::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--coral);
     }
     .app-sidebar-name { font-size: 13px; font-weight: 600; color: #1C1C2E; }
     .app-nav-item {
@@ -1148,15 +1169,25 @@
     .footer-logo { display: flex; align-items: center; gap: 9px; text-decoration: none; color: var(--text-1); }
     .footer-logo-mark {
       width: 26px; height: 26px;
-      background: var(--coral);
+      background: var(--indigo);
       border-radius: 6px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: var(--font-mono);
-      font-size: 10px;
-      font-weight: 500;
+      font-family: 'Inter', sans-serif;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
       color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .footer-logo-mark::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--coral);
     }
     .footer-logo-text { font-size: 13px; font-weight: 600; }
     .footer-mid { font-size: 12px; color: var(--text-3); }
@@ -1341,8 +1372,8 @@
   <nav id="nav">
     <div class="nav-inner">
       <a href="#" class="nav-logo" aria-label="ExoCog home">
-        <div class="nav-logo-mark">Ex</div>
-        <span class="nav-logo-text">ExoCog</span>
+        <div class="nav-logo-mark"><span style="font-weight:300;opacity:0.7;">e</span>X<span style="font-weight:300;opacity:0.7;">o</span></div>
+        <span class="nav-logo-text"><span style="font-weight:300;color:var(--text-2);">Exo</span><span style="font-weight:700;color:var(--indigo);">Cog</span></span>
       </a>
       <ul class="nav-links" role="list">
         <li><a href="#what">What it is</a></li>
@@ -1688,7 +1719,7 @@
           <!-- ── Scene 1: Dashboard ── -->
           <div class="cscene active" id="cs-1">
             <div class="csidebar">
-              <div class="cs-logo"><div class="cs-mark">Ex</div><span class="cs-name">ExoCog</span></div>
+              <div class="cs-logo"><div class="cs-mark">EXO</div><span class="cs-name">ExoCog</span></div>
               <div class="cs-nav active"><span class="cs-icon">🏠</span> Dashboard</div>
               <div class="cs-nav"><span class="cs-icon">📅</span> Calendar</div>
               <div class="cs-nav"><span class="cs-icon">💬</span> Chat</div>
@@ -1728,7 +1759,7 @@
           <!-- ── Scene 2: Calendar ── -->
           <div class="cscene" id="cs-2">
             <div class="csidebar">
-              <div class="cs-logo"><div class="cs-mark">Ex</div><span class="cs-name">ExoCog</span></div>
+              <div class="cs-logo"><div class="cs-mark">EXO</div><span class="cs-name">ExoCog</span></div>
               <div class="cs-nav"><span class="cs-icon">🏠</span> Dashboard</div>
               <div class="cs-nav active"><span class="cs-icon">📅</span> Calendar</div>
               <div class="cs-nav"><span class="cs-icon">💬</span> Chat</div>
@@ -1798,7 +1829,7 @@
           <!-- ── Scene 3: Org Chart ── -->
           <div class="cscene" id="cs-3">
             <div class="csidebar">
-              <div class="cs-logo"><div class="cs-mark">Ex</div><span class="cs-name">ExoCog</span></div>
+              <div class="cs-logo"><div class="cs-mark">EXO</div><span class="cs-name">ExoCog</span></div>
               <div class="cs-nav"><span class="cs-icon">🏠</span> Dashboard</div>
               <div class="cs-nav"><span class="cs-icon">📅</span> Calendar</div>
               <div class="cs-nav"><span class="cs-icon">💬</span> Chat</div>
@@ -1897,7 +1928,7 @@
           <!-- ── Scene 4: Live Activity Feed ── -->
           <div class="cscene" id="cs-4">
             <div class="csidebar">
-              <div class="cs-logo"><div class="cs-mark">Ex</div><span class="cs-name">ExoCog</span></div>
+              <div class="cs-logo"><div class="cs-mark">EXO</div><span class="cs-name">ExoCog</span></div>
               <div class="cs-nav"><span class="cs-icon">🏠</span> Dashboard</div>
               <div class="cs-nav"><span class="cs-icon">📅</span> Calendar</div>
               <div class="cs-nav"><span class="cs-icon">💬</span> Chat</div>
@@ -1971,7 +2002,7 @@
           <!-- ── Scene 5: Skill Packs ── -->
           <div class="cscene" id="cs-5">
             <div class="csidebar">
-              <div class="cs-logo"><div class="cs-mark">Ex</div><span class="cs-name">ExoCog</span></div>
+              <div class="cs-logo"><div class="cs-mark">EXO</div><span class="cs-name">ExoCog</span></div>
               <div class="cs-nav"><span class="cs-icon">🏠</span> Dashboard</div>
               <div class="cs-nav"><span class="cs-icon">📅</span> Calendar</div>
               <div class="cs-nav"><span class="cs-icon">💬</span> Chat</div>
@@ -2276,8 +2307,8 @@
   <footer>
     <div class="container footer-inner">
       <a href="#" class="footer-logo" aria-label="ExoCog">
-        <div class="footer-logo-mark">Ex</div>
-        <span class="footer-logo-text">ExoCog</span>
+        <div class="footer-logo-mark"><span style="font-weight:300;opacity:0.7;">e</span>X<span style="font-weight:300;opacity:0.7;">o</span></div>
+        <span class="footer-logo-text"><span style="font-weight:300;color:var(--text-2);">Exo</span><span style="font-weight:600;color:var(--indigo);">Cog</span></span>
       </a>
       <span class="footer-mid">© 2026 ExoCog. All rights reserved.</span>
       <div class="footer-social" aria-label="Social links">
